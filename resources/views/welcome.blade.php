@@ -9,8 +9,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+<body class="bg-hero-pattern bg-no-repeat bg-cover bg-fixed">
+    <nav
+        class="backdrop-blur bg-opacity-25 bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">People Center Event
@@ -64,34 +65,89 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
                 <ul
-                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                             aria-current="page">Home</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pricing</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="z-0 flex justify-center">
-        <img class="brightness-75 h-1/2 w-screen rounded-lg" src="/images/ppl_center.jpg" alt="image description">
+    <section>
+        <div class="h-screen flex flex-col justify-center bg-black bg-opacity-50">
+            <div
+                class="ml-12 flex flex-col justify-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-200 md:text-5xl lg:text-6xl dark:text-white">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl">Looking for a Venue?</h1>
+                <span class="text-blue-600 dark:text-blue-500">People Center Tacloban</span>
+                <h1>Where Moments become Memories.</h1>
+            </div>
+        </div>
+        <div class="bg-white bg-opacity-95">
+            <div class="mx-4 py-4">
+                <h1 class="text-l md:text-xl lg:text-2xl text-center">Checkout Successful Events!</h1>
+
+                <div class="m-12 flex justify-evenly md:flex-row h-96 md:max-w-full">
+                    <video class="object-cover w-1/2 rounded-2xl h-full md:h-full md:w-1/2 md:rounded-2xl"
+                        src="/videos/vid1.mp4" autoplay controls muted></video>
+                    <div class="flex flex-col justify-center p-4 leading-normal w-1/3">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT Eastern
+                            Visayas</h5>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event held at
+                            the People’s Center and Library in Tacloban City! 🎶</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich culture,
+                            arts, and tourism of Eastern Visayas with stunning
+                            performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
+                            Infomercial Music Video Competition. 🎤🎬</p>
+                    </div>
+                </div>
+                <div class="m-12 flex justify-evenly md:flex-row h-96 md:max-w-full text-right">
+                    <div class="flex flex-col justify-center p-4 leading-normal w-1/3">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT Eastern
+                            Visayas</h5>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event held at
+                            the People’s Center and Library in Tacloban City! 🎶</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich culture,
+                            arts, and tourism of Eastern Visayas with stunning
+                            performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
+                            Infomercial Music Video Competition. 🎤🎬</p>
+                    </div>
+                    <video class="object-cover w-1/2 rounded-2xl h-full md:h-full md:w-1/2 md:rounded-2xl"
+                        src="/videos/vid1.mp4" autoplay controls muted></video>
+                </div>
+                <div class="m-12 flex justify-evenly md:flex-row h-96 md:max-w-full">
+                    <video class="object-cover w-1/2 rounded-2xl h-full md:h-full md:w-1/2 md:rounded-2xl"
+                        src="/videos/vid1.mp4" autoplay controls muted></video>
+                    <div class="flex flex-col justify-center p-4 leading-normal w-1/3">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT Eastern
+                            Visayas</h5>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event held at
+                            the People’s Center and Library in Tacloban City! 🎶</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich culture,
+                            arts, and tourism of Eastern Visayas with stunning
+                            performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
+                            Infomercial Music Video Competition. 🎤🎬</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 </body>
