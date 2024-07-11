@@ -101,49 +101,150 @@
             </div>
         </div>
         <div class="bg-white bg-opacity-95">
-            <div class="mx-4 py-4">
+            <div class="sm:mx-4 py-4 flex justify-evenly flex-col">
                 <h1 class="text-l md:text-xl lg:text-2xl text-center">Checkout Successful Events!</h1>
 
-                <div class="m-12 flex justify-evenly md:flex-row h-96 md:max-w-full">
-                    <video class="object-cover w-1/2 rounded-2xl h-full md:h-full md:w-1/2 md:rounded-2xl"
-                        src="/videos/vid1.mp4" autoplay controls muted></video>
-                    <div class="flex flex-col justify-center p-4 leading-normal w-1/3">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT Eastern
+                <div
+                    class="m-12 flex justify-center flex-col md:justify-evenly sm:justify-center md:flex-row sm:flex-col">
+                    <video class="object-cover w-full rounded-2xl h-96 md:h-full sm:w-full md:w-1/2 md:rounded-2xl"
+                        src="/videos/vid1.mp4" autoplay controls muted loop></video>
+                    <div class="flex flex-col justify-center p-4 leading-normal md:w-1/3">
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT
+                            Eastern
                             Visayas</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event held at
+                        <p class="text-sm mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event
+                            held at
                             the People’s Center and Library in Tacloban City! 🎶</p>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich culture,
+                        <p class="text-sm mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich
+                            culture,
                             arts, and tourism of Eastern Visayas with stunning
                             performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
                             Infomercial Music Video Competition. 🎤🎬</p>
                     </div>
                 </div>
-                <div class="m-12 flex justify-evenly md:flex-row h-96 md:max-w-full text-right">
-                    <div class="flex flex-col justify-center p-4 leading-normal w-1/3">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT Eastern
-                            Visayas</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event held at
-                            the People’s Center and Library in Tacloban City! 🎶</p>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich culture,
-                            arts, and tourism of Eastern Visayas with stunning
-                            performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
-                            Infomercial Music Video Competition. 🎤🎬</p>
+                <div
+                    class="m-12 flex justify-center flex-col md:justify-evenly sm:justify-center md:flex-row sm:flex-col">
+                    <div class="flex flex-col justify-center p-4 leading-normal md:w-1/3">
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">JCI
+                            TEMIONG AWARDS 2023</h5>
                     </div>
-                    <video class="object-cover w-1/2 rounded-2xl h-full md:h-full md:w-1/2 md:rounded-2xl"
-                        src="/videos/vid1.mp4" autoplay controls muted></video>
+                    <div class="md:w-1/2 sm:w-full">
+                        <div class="grid grid-cols-2 md:grid-cols-2 gap-4">
+                            <div class="grid gap-4">
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/jci/jci1.jpg" alt="">
+                                </div>
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/jci/jci2.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="grid gap-4">
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/jci/jci3.jpg" alt="">
+                                </div>
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/jci/jci4.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="m-12 flex justify-evenly md:flex-row h-96 md:max-w-full">
-                    <video class="object-cover w-1/2 rounded-2xl h-full md:h-full md:w-1/2 md:rounded-2xl"
-                        src="/videos/vid1.mp4" autoplay controls muted></video>
-                    <div class="flex flex-col justify-center p-4 leading-normal w-1/3">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT Eastern
-                            Visayas</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event held at
-                            the People’s Center and Library in Tacloban City! 🎶</p>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich culture,
-                            arts, and tourism of Eastern Visayas with stunning
-                            performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
-                            Infomercial Music Video Competition. 🎤🎬</p>
+                <div
+                    class="m-12 flex justify-center flex-col md:justify-evenly sm:justify-center md:flex-row sm:flex-col">
+
+                    <div class="md:w-1/2 sm:w-full">
+                        <div class="grid gap-4">
+                            <div>
+                                <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh1.jpg" alt="">
+                            </div>
+                            <div class="grid grid-cols-4 gap-4">
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh2.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh3.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh4.jpg"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh5.jpg"
+                                        alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center p-4 leading-normal md:w-1/3">
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            Pipols Food Hub Tacloban</h5>
+                        <p class="text-sm mb-3 font-normal text-gray-700 dark:text-gray-400">Food Place event
+                            held at
+                            the People’s Center in Tacloban City!</p>
+                    </div>
+                </div>
+
+
+                <h1 class="text-l md:text-xl lg:text-2xl text-center">And Many More!</h1>
+                <div class="flex justify-center">
+                    <div id="default-carousel" class="relative w-2/3" data-carousel="slide">
+                        <!-- Carousel wrapper -->
+                        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                            <?php
+                        for ($i=0; $i < 6; $i++) {
+                            ?>
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="/images/carousel/<?php echo $i + 1; ?>.jpg"
+                                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                    alt="<?php echo $i + 1; ?>">
+                            </div>
+                            <?php
+                        }
+                        ?>
+
+                        </div>
+                        <!-- Slider indicators -->
+                        <div
+                            class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+                            <?php
+                            for ($i=0; $i < 6; $i++) {
+                                ?>
+                            <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
+                                aria-label="Slide 2" data-carousel-slide-to="<?php echo $i + 1; ?>"></button>
+                            <?php
+                            }
+                        ?>
+                        </div>
+                        <!-- Slider controls -->
+                        <button type="button"
+                            class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                            data-carousel-prev>
+                            <span
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M5 1 1 5l4 4" />
+                                </svg>
+                                <span class="sr-only">Previous</span>
+                            </span>
+                        </button>
+                        <button type="button"
+                            class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                            data-carousel-next>
+                            <span
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 9 4-4-4-4" />
+                                </svg>
+                                <span class="sr-only">Next</span>
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>
