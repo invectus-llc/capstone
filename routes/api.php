@@ -8,3 +8,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 Route::get('/events',[EventsController::class, 'dashboard']);
+Route::post('/events', [EventsController::class,'addEvent']);
