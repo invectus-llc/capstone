@@ -5,4 +5,4 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index']);
-Route::get('/dashboard', [DashboardController::class, 'home']);
+Route::get('/dashboard', [IndexController::class, 'dashboard']);
