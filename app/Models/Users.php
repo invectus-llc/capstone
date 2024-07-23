@@ -12,5 +12,6 @@ class Users extends Model
         'email',
         'firstname',
         'lastname',
+        'login_id'
     ];
 }

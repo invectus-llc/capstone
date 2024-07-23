@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('eventName');
-            $table->date('eventStart');
-            $table->date('eventEnd');
-            $table->integer('clientId');
-            $table->integer('status');
-            $table->timestamps();
-        });
+        // Schema::create('events', function(Blueprint $table){
+        //     $table->increments('id');
+        //     $table->string('eventName');
+        //     $table->date('eventStart');
+        //     $table->date('eventEnd');
+        //     $table->unsignedInteger('clientId');
+        //     $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        //     $table->integer('status');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        // Schema::dropIfExists('events');
     }
 };

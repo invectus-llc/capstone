@@ -281,10 +281,10 @@
         <div class="form-container sign-in-container">
             <form>
                 <h1>Sign in</h1>
-                <input type="text" name="username" placeholder="Username" />
-                <input type="password" name="password" placeholder="Password" />
+                <input id='siUsername' type="text" name="username" placeholder="Username" />
+                <input id='siPassword' type="password" name="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
-                <button id="signin">Sign In</button>
+                <button type='button' id="signin">Sign In</button>
             </form>
         </div>
         <div class="overlay-container">

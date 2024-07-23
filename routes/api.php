@@ -11,5 +11,8 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 Route::get('/events',[EventsController::class, 'dashboard']);
 Route::post('/events', [EventsController::class,'addEvent']);
+
 Route::post('/login', [LoginController::class, 'register']);
+Route::get('/login', [LoginController::class, 'login']);
+
 Route::post('/users', [UsersController::class, 'register']);

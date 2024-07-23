@@ -55,5 +55,24 @@ $('#signup').on('click', function () {
             console.log(xhr, status);
         }
     })
-    console.log(username, password, email, firstname, lastname, login_id)
+})
+$('#signin').on('click', function(){
+    var username = $('#siUsername').val()
+    var password = $('#siPassword').val()
+    $.ajax({
+        url: '/api/login',
+        method: 'get',
+        dataType: 'json',
+        data: {
+            username: username
+        },
+        success: function(response){
+            console.log(response)
+            if(username == response.username){
+                if(password == response.password){
+                    window.location = '/dashboard';
+                }
+            }
+        }
+    })
 })
