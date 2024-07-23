@@ -16,7 +16,8 @@ class EventsController extends Controller
             'eventName' => $request->eventName,
             'eventStart' => $request->startDate,
             'eventEnd' => $request->endDate,
-            'clientId' => $request->clientId
+            'clientId' => $request->clientId,
+            'status' => $request->status
         ]);
         return response()->json(Response::HTTP_CREATED);
     }
