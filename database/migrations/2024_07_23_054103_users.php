@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use PHPUnit\TextUI\XmlConfiguration\SuccessfulSchemaDetectionResult;
 
 return new class extends Migration
 {
@@ -16,6 +18,10 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->timestamps();
+        });
+        Schema::create('status', function(Blueprint $table){
+            $table->increments('id');
+            $table->string('status');
         });
         Schema::create('users', function(Blueprint $table){
             $table->increments('id');
@@ -33,9 +39,13 @@ return new class extends Migration
             $table->date('eventEnd');
             $table->unsignedInteger('clientId');
             $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('status');
+            $table->unsignedInteger('statusId');
+            $table->foreign('statusId')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
+        DB::table('status')->insert(['status' => 'paid']);
+        DB::table('status')->insert(['status' => 'pending']);
+        DB::table('status')->insert(['status' => 'booked']);
     }
 
     /**
@@ -45,6 +55,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('events');
         Schema::dropIfExists('users');
+        Schema::drop('status');
         Schema::dropIfExists('logins');
     }
 };

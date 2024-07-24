@@ -14,6 +14,6 @@ class Events extends Model
         'eventStart',
         'eventEnd',
         'clientId',
-        'status',
+        'statusId',
     ];
 }

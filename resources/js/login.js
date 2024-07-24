@@ -46,7 +46,12 @@ $('#signup').on('click', function () {
                         login_id: login_id
                     },
                     success: function(response){
-                        console.log(response)
+                        $('#suUsername').val('')
+                        $('#suPassword').val('')
+                        $('#suEmail').val('')
+                        $('#suFirstname').val('')
+                        $('#suLastname').val('')
+                        $('#signIn').click()
                     }
                 })
             }
@@ -56,23 +61,24 @@ $('#signup').on('click', function () {
         }
     })
 })
-$('#signin').on('click', function(){
-    var username = $('#siUsername').val()
-    var password = $('#siPassword').val()
-    $.ajax({
-        url: '/api/login',
-        method: 'get',
-        dataType: 'json',
-        data: {
-            username: username
-        },
-        success: function(response){
-            console.log(response)
-            if(username == response.username){
-                if(password == response.password){
-                    window.location = '/dashboard';
-                }
-            }
-        }
-    })
-})
+// $('#signin').on('click', function(){
+//     var username = $('#siUsername').val()
+//     var password = $('#siPassword').val()
+//     $.ajax({
+//         url: '/api/login',
+//         method: 'get',
+//         dataType: 'json',
+//         data: {
+//             username: username
+//         },
+//         success: function(response){
+//             // if(username == response.username){
+//             //     if(password == response.password){
+//             //         window.location = '/dashboard';
+
+//             //     }
+//             // }
+//             console.log(response.id)
+//         }
+//     })
+// })

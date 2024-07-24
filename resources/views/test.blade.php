@@ -1,1 +1,2 @@
-{{ session()->get('id') }}
+{{-- {{ session()->flush() }} --}}
+{{ dd(json_decode(data)) }}

@@ -12,6 +12,8 @@ window.$ = jQuery
 $(document).ready(function() {
 	display_events();
 }); //end document.ready block
+const queryString = new URLSearchParams(window.location.search);
+const uid = queryString.get('user')
 
 function calendar(events){
     let calendarEl = document.getElementById('calendar');
@@ -38,26 +40,29 @@ function display_events() {
 	var events = new Array();
     var color = new String;
     var data = new $.ajax({
-        url: '/api/events/',
+        url: '/api/events/' + uid,
         method:'get',
         dataType: 'json',
         success: function (response) {
+            console.log(response)
             $.each(response, function (i, item) {
-                switch (response[i].status) {
-                    case 1:
-                        color = 'green'
-                        break;
-                    case 2:
-                        color = 'yellow'
-                        break;
-                    case 3:
-                        color = 'red'
-                        break;
-
-                    default:
-                        break;
+                if(response[i].clientId != uid){
+                    color = 'red'
                 }
-                events.push({
+                else{
+                    switch (response[i].statusId) {
+                        case 1:
+                            color = 'green'
+                            break;
+                        case 2:
+                            color = 'yellow'
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                    events.push({
                     event_id: response[i].id,
                     start: response[i].eventStart,
                     end: response[i].eventEnd,
@@ -78,8 +83,8 @@ $('#eventSubmit').on('click', function () {
     var eventName = $('#eventName').val();
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
-    var clientId = 1
-    var status = 1 + Math.floor(Math.random() * 3);
+    var clientId = uid;
+    var status = 2;
 
     $.ajax({
         url:'/api/events',

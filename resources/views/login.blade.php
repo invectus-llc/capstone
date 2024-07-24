@@ -279,12 +279,13 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form>
+            <form method='get' action='/api/login'>
+                @csrf
                 <h1>Sign in</h1>
                 <input id='siUsername' type="text" name="username" placeholder="Username" />
                 <input id='siPassword' type="password" name="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
-                <button type='button' id="signin">Sign In</button>
+                <button type='submit' id="signin">Sign In</button>
             </form>
         </div>
         <div class="overlay-container">
