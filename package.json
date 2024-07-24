@@ -23,6 +23,7 @@
         "@fullcalendar/timegrid": "^6.1.15",
         "@maptiler/leaflet-maptilersdk": "^2.0.0",
         "@maptiler/sdk": "^2.2.1",
+        "datatables.net-dt": "^2.1.0",
         "fullcalendar": "^6.1.15",
         "leaflet": "^1.9.4"
     }

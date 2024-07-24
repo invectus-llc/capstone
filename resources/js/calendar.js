@@ -11,6 +11,7 @@ window.$ = jQuery
 
 $(document).ready(function() {
 	display_events();
+    $('#table').hide()
 }); //end document.ready block
 const queryString = new URLSearchParams(window.location.search);
 const uid = queryString.get('user')
@@ -40,12 +41,12 @@ function display_events() {
 	var events = new Array();
     var color = new String;
     var data = new $.ajax({
-        url: '/api/events/' + uid,
+        url: '/api/events',
         method:'get',
         dataType: 'json',
         success: function (response) {
             console.log(response)
-            $.each(response, function (i, item) {
+            $.each(response, function (i) {
                 if(response[i].clientId != uid){
                     color = 'red'
                 }
@@ -111,4 +112,81 @@ $('#eventSubmit').on('click', function () {
     })
     display_events()
 })
+$('#dashboard').on('click',function(){
+    $('#calendar').show()
+    $("#table").hide()
+    display_events()
+})
+$('#events').on('click', function(){
+    $("#tbody tr").remove()
+    $('#calendar').hide()
+    $("#table").show()
+    $.ajax({
+        url: '/api/events',
+        method: 'get',
+        dataType: 'json',
+        success: function(response){
+            // data = response
+            $.each(response, function(i){
+                if(response[i].clientId == uid){
+                    var tbrow = `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        ${response[i].eventName.toUpperCase()}
+                    </th>
+                    <td class="px-6 py-4">
+                        ${response[i].eventStart}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${response[i].eventEnd}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${response[i].status.toUpperCase()}
+                    </td>
+                    <td class="px-6 py-4 flex justify-center">
+                        <button id="${response[i].id}" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            Edit
+                        </button>
+                    </td>
+                    </tr>`;
+                    $('#tbody').append(tbrow);
+                }
+                $('body').on('click','#' + response[i].id, function(){
+                    $("#updModal").click()
+                    $("#modaltitle").text('Event Status: ' + response[i].status.toUpperCase())
+                    $("#modaltitle").val(response[i].id)
+                    $("#updEventName").val(response[i].eventName)
+                    $("#updStartDate").val(response[i].eventStart)
+                    $("#updEndDate").val(response[i].eventEnd)
+                    $("#updEventSubmit").val(response[i].id)
+                })
 
+            })
+
+        }
+    })
+})
+$("#updEventSubmit").on('click', function(){
+    //console.log($("#updEventSubmit").val())
+    let id = $("#updEventSubmit").val()
+    let eventName = $("#updEventName").val()
+    let eventStart = $("#updStartDate").val()
+    let eventEnd = $("#updEndDate").val()
+
+    $.ajax({
+        url: '/api/events',
+        method: 'patch',
+        dataType: 'json',
+        data:{
+            id: id,
+            eventName: eventName,
+            eventStart: eventStart,
+            eventEnd: eventEnd
+        },
+        success: function(response){
+            console.log(response)
+            $("#updCloseModal").click()
+            $("#events").click()
+        }
+    })
+})

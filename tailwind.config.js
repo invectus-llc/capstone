@@ -13,6 +13,7 @@ export default {
         },
     },
   },
+  darkMode: 'media',
   plugins: [
     require('flowbite/plugin')
   ],

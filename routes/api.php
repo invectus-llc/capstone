@@ -9,8 +9,9 @@ use App\Http\Controllers\EventsController;
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
-Route::get('/events/{uid}',[EventsController::class, 'dashboard']);
+Route::get('/events',[EventsController::class, 'dashboard']);
 Route::post('/events', [EventsController::class,'addEvent']);
+Route::patch('/events', [EventsController::class,'updEvent']);
 
 Route::post('/login', [LoginController::class, 'register']);
 Route::get('/login', [LoginController::class, 'login']);
