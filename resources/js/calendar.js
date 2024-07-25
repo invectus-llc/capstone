@@ -159,6 +159,7 @@ $('#events').on('click', function(){
                     $("#updStartDate").val(response[i].eventStart)
                     $("#updEndDate").val(response[i].eventEnd)
                     $("#updEventSubmit").val(response[i].id)
+                    $("#paybtn").val(response[i].id)
                 })
 
             })
@@ -187,6 +188,24 @@ $("#updEventSubmit").on('click', function(){
             console.log(response)
             $("#updCloseModal").click()
             $("#events").click()
+        }
+    })
+})
+$("#paybtn").on('click', function(){
+    var eventId = $("#paybtn").val()
+    console.log(eventId)
+    $.ajax({
+        url: '/api/pay',
+        method: 'post',
+        dataType: 'json',
+        data:{
+            eventId: eventId,
+            uid: uid,
+        },
+        success: function(response){
+            var url = response
+            //console.log(response)
+            window.location.assign(url.attributes.checkout_url)
         }
     })
 })

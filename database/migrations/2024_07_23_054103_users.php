@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('eventName');
             $table->date('eventStart');
             $table->date('eventEnd');
+            $table->string('transactionId');
             $table->unsignedInteger('clientId');
             $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('statusId');

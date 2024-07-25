@@ -18,6 +18,7 @@ class EventsController extends Controller
             'eventName' => $request->eventName,
             'eventStart' => $request->startDate,
             'eventEnd' => $request->endDate,
+            'transactionId' => '',
             'clientId' => $request->clientId,
             'statusId' => $request->status
         ]);

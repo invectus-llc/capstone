@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\PaymentController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -17,3 +18,6 @@ Route::post('/login', [LoginController::class, 'register']);
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::post('/users', [UsersController::class, 'register']);
+
+Route::get('/success/{uid}/{eventId}', [PaymentController::class,'success']);
+Route::post('/pay', [PaymentController::class, 'pay']);

@@ -13,6 +13,7 @@ class Events extends Model
         'eventName',
         'eventStart',
         'eventEnd',
+        'transactionId',
         'clientId',
         'statusId',
     ];
