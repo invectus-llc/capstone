@@ -52,16 +52,11 @@ class PaymentController extends Controller
         $url = json_decode($response->getBody());
         $transid = $url->data->attributes->payment_intent->id;
         DB::table('events')->where('id', '=',$request->eventId)->update(['transactionId'=> $transid]);
-        // Session::push('transid', $transid);
-        //dd(Session::all());
-        //dd($url->data->attributes->payment_intent->id);
         return response()->json($url->data);
     }
     public function success($uid, $eventId){
         DB::table('events')->where('id', '=', $eventId)->update(['statusId' => 1]);
         return redirect('/dashboard?user=' . $uid);
-        //dashbord render yellow hidden but not user
-        //payment button hidden if paid
         //ovverlaping edit date
     }
 }

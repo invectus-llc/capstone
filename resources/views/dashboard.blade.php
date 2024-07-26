@@ -135,8 +135,6 @@ if (session()->get('id') == 2) {
         </div>
     </div>
 
-
-
     <!-- Modal toggle -->
     <button id="add-event" data-modal-target="addevent-modal" data-modal-toggle="addevent-modal" type="button" hidden>
     </button>
@@ -201,8 +199,8 @@ if (session()->get('id') == 2) {
         </div>
     </div>
 
-
-    <button hidden id="updModal" data-modal-target="upd-modal" data-modal-toggle="upd-modal"
+    {{-- event modal --}}
+    <button id="updModal" data-modal-target="upd-modal" data-modal-toggle="upd-modal"
         class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button">
         Edit
@@ -214,8 +212,8 @@ if (session()->get('id') == 2) {
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 id="modaltitle" class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Event Title
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Event Details
                     </h3>
                     <button type="button" id='updCloseModal'
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -231,31 +229,62 @@ if (session()->get('id') == 2) {
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4">
 
-
                     <form class="max-w-md mx-auto" id='btnform'>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="text" name="updEventName" id="updEventName"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
-                            <label for="updEventname"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Event
-                                Name</label>
+                        <div class="my-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-200"
+                            id="container">
+                            <div class="relative z-0 w-full mb-5 group">
+                                <h6 id="modaltitle" class="text-lg font-bold dark:text-white">Heading 6</h6>
+                            </div>
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="text" name="updEventName" id="updEventName"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <label for="updEventname"
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Event
+                                    Name</label>
+                            </div>
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="date" name="updStartDate" id="updStartDate"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <input type="date" id="initialdate1">
+                                <label for="updStartDate"
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Start
+                                    Date</label>
+                            </div>
+                            <div class="relative z-0 w-full mb-5 group">
+                                <input type="date" name="updEndDate" id="updEndDate"
+                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required />
+                                <input type="date" id="initialdate2">
+                                <label for="updEndDate"
+                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">End
+                                    Date</label>
+                            </div>
                         </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="date" name="updStartDate" id="updStartDate"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
-                            <label for="updStartDate"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Start
-                                Date</label>
-                        </div>
-                        <div class="relative z-0 w-full mb-5 group">
-                            <input type="date" name="updEndDate" id="updEndDate"
-                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" " required />
-                            <label for="updEndDate"
-                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">End
-                                Date</label>
+                        <div class="m-4 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-200"
+                            id="container">
+                            <div class="relative z-0 w-full mb-5 group">
+                                <p class="mb-3 text-gray-500 dark:text-gray-400"> <strong
+                                        class="font-semibold text-gray-900 dark:text-white">Breakdown: </strong></p>
+                                <div class="flex justify-between">
+                                    <p class="mb-3 text-gray-500 dark:text-gray-400"> <strong
+                                            class="font-semibold text-gray-900 dark:text-white">Price</strong></p>
+                                    <p class="mb-3 text-gray-500 dark:text-gray-400"> <strong
+                                            class="font-semibold text-gray-900 dark:text-white">PHP: 80,000.00</strong>
+                                    </p>
+                                </div>
+                                <div class="flex justify-between">
+                                    <p class="mb-3 text-gray-500 dark:text-gray-400"> <strong
+                                            class="font-semibold text-gray-900 dark:text-white">Days</strong></p>
+                                    <p class="mb-3 text-gray-500 dark:text-gray-400"> <strong id="eventDays"
+                                            class="font-semibold text-gray-900 dark:text-white"></strong></p>
+                                </div>
+                                <div class="flex justify-between">
+                                    <h6 class="text-lg font-bold dark:text-white">Total:</h6>
+                                    <h6 class="text-lg font-bold dark:text-white" id="total">Total:</h6>
+                                </div>
+                            </div>
                         </div>
                         <button type="button" id='updEventSubmit'
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -268,7 +297,6 @@ if (session()->get('id') == 2) {
             </div>
         </div>
     </div>
-
 </body>
 
 

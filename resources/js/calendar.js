@@ -12,6 +12,9 @@ window.$ = jQuery
 $(document).ready(function() {
 	display_events();
     $('#table').hide()
+    $("#updModal").hide()
+    $("#initialdate1").hide()
+    $("#initialdate2").hide()
 
     const queryString = new URLSearchParams(window.location.search);
     const uid = queryString.get('user')
@@ -48,11 +51,7 @@ $(document).ready(function() {
                 //console.log(response)
                 $.each(response, function (i) {
                     if(response[i].clientId != uid){
-                        if(response[i].statusId == 2){
-                            color = 'white'
-                        }else{
                             color = 'red'
-                        }
                     }
                     else{
                         switch (response[i].statusId) {
@@ -155,26 +154,43 @@ $(document).ready(function() {
                         </tr>`;
                         $('#tbody').append(tbrow);
                     }
-                    $('body').on('click','#' + response[i].id, function(){
+                    $(document).on('click','#' + response[i].id, function(){
                         let date1 = new Date(response[i].eventStart)
                         let date2 = new Date(response[i].eventEnd)
                         let Difference_In_Time = date2.getTime() - date1.getTime()
                         let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
-                        let number = Number(Math.round((Difference_In_Days* 80000) * 100) / 100).toFixed(2)
-                        console.log(number.toLocaleString('en'))
-                        //number to decimal format
+
+                        let number = Number(Math.round((Difference_In_Days* 80000) * 100) / 100)
+                        const options = {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          };
+                        const formatted = Number(number).toLocaleString('en', options);
+
+                        $("#eventDays").text("x" + Difference_In_Days)
+                        $("#total").text('PHP ' + formatted)
                         $("#updModal").click()
-                        $("#modaltitle").text('Event Status: ' + response[i].status.toUpperCase())
+                        $("#modaltitle").text('Status: ' + response[i].status.toUpperCase())
                         $("#modaltitle").val(response[i].id)
                         $("#updEventName").val(response[i].eventName)
                         $("#updStartDate").val(response[i].eventStart)
                         $("#updEndDate").val(response[i].eventEnd)
+                        $("#initialdate1").val(response[i].eventStart)
+                        $("#initialdate2").val(response[i].eventEnd)
                         $("#updEventSubmit").val(response[i].id)
                         $("#paybtn").val(response[i].id)
                         if(response[i].statusId == 1){
                             $("#paybtn").hide()
+                            $("#updEventSubmit").hide()
+                            $("#updStartDate").attr('disabled', true)
+                            $("#updEndDate").attr('disabled', true)
+                            $("#updEventName").attr('disabled', true)
                         }else{
                             $("#paybtn").show()
+                            $("#updEventSubmit").show()
+                            $("#updStartDate").attr('disabled', false)
+                            $("#updEndDate").attr('disabled', false)
+                            $("#updEventName").attr('disabled', false)
                         }
                     })
 
@@ -189,7 +205,8 @@ $(document).ready(function() {
         let eventName = $("#updEventName").val()
         let eventStart = $("#updStartDate").val()
         let eventEnd = $("#updEndDate").val()
-
+        let initialdate1 = $("#initialdate1").val()
+        let initialdate2 = $("#initialdate2").val()
         $.ajax({
             url: '/api/events',
             method: 'patch',
@@ -198,10 +215,13 @@ $(document).ready(function() {
                 id: id,
                 eventName: eventName,
                 eventStart: eventStart,
-                eventEnd: eventEnd
+                eventEnd: eventEnd,
+                initialdate1: initialdate1,
+                initialdate2: initialdate2
             },
             success: function(response){
-                console.log(response)
+                //console.log(response)
+                alert(response)
                 $("#updCloseModal").click()
                 $("#events").click()
             }
@@ -226,3 +246,6 @@ $(document).ready(function() {
         })
     })
 }); //end document.ready block
+// make on change event for total price
+// make dynamic payment total
+// make item object dynamic

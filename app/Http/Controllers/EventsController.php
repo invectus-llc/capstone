@@ -25,18 +25,30 @@ class EventsController extends Controller
         return response()->json(Response::HTTP_CREATED);
     }
     public function updEvent(Request $request){
-        $input = $request->all();
-        //dd($request->getContent(0));
-        // for ($i=1; $i < count($input); $i++) {
-        //     DB::table('events')->where('id', $request->id)->update([$request[$i] => $request[$i]]);
-        // }
-        DB::table('events')
-        ->where('id', $request->id)
-        ->update([
-            'eventName' => $request['eventName'],
-            'eventStart' => $request['eventStart'],
-            'eventEnd' => $request['eventEnd'],
-        ]);
-        return response()->json(Response::HTTP_OK);
+        $input = DB::table('events')->where([['eventStart', '!=', $request['initialdate1']],['eventEnd', '!=', $request['initialdate2']]])->get();
+        for ($i=0; $i < count($input); $i++) {
+            if($request['eventStart'] < $input[$i]->eventEnd && $request['eventStart'] >= $input[$i]->eventStart){
+                if($request['eventEnd'] > $input[$i]->eventStart && $request['eventEnd'] <= $input[$i]->eventEnd){
+                    $response = 'Ending Date Already Booked!';
+                    break;
+                }
+                $response = 'Starting Date Already Booked!';
+                break;
+            }elseif ($request['eventEnd'] > $input[$i]->eventStart && $request['eventEnd'] <= $input[$i]->eventEnd) {
+                $response = 'Ending Date Already Booked!';
+                break;
+            }else{
+                DB::table('events')
+                ->where('id', $request->id)
+                ->update([
+                    'eventName' => $request['eventName'],
+                    'eventStart' => $request['eventStart'],
+                    'eventEnd' => $request['eventEnd'],
+                ]);
+                $response = 'Event Updated!';
+            }
+        }
+
+        return response()->json($response, Response::HTTP_OK);
     }
 }
