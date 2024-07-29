@@ -25,6 +25,8 @@
         "@maptiler/sdk": "^2.2.1",
         "datatables.net-dt": "^2.1.0",
         "fullcalendar": "^6.1.15",
-        "leaflet": "^1.9.4"
+        "jQuery.print": "^1.5.1",
+        "leaflet": "^1.9.4",
+        "print-this": "^2.0.0"
     }
 }

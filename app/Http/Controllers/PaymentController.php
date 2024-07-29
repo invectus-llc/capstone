@@ -12,7 +12,7 @@ class PaymentController extends Controller
     public function pay(Request $request){
         $transid = '';
         $item = $request;
-        $total = $item->total * 100;
+        $total = $item->total;
         $auth = 'c2tfdGVzdF85ZW1Va0o2TjNHYXhtZ2VQRjY5WVdSaWo6';
         $client = new \GuzzleHttp\Client();
 
@@ -20,7 +20,7 @@ class PaymentController extends Controller
         'body' => '{
             "data":{
                 "attributes":{
-                    "send_email_receipt":false,
+                    "send_email_receipt": true,
                     "show_description":true,
                     "show_line_items":true,
                     "description":"Function Hall Rental For: '.$item->eventName. ', From: '.$item->eventStart.', To: '.$item->eventEnd.'",
@@ -40,7 +40,7 @@ class PaymentController extends Controller
                         "gcash",
                         "grab_pay"
                     ],
-                    "success_url":"http://localhost:8000/api/success/'.$request->uid.'/'.$request->eventId.'"
+                    "success_url":"http://localhost:8000/api/success/'.$request->uid.'/'.$request->transId.'"
                 }
             }
         }',
@@ -52,11 +52,13 @@ class PaymentController extends Controller
         ]);
         $url = json_decode($response->getBody());
         $transid = $url->data->attributes->payment_intent->id;
-        DB::table('events')->where('id', '=',$request->eventId)->update(['transactionId'=> $transid]);
+        //$trans_id = DB::table('events')->where('id','=',$request->eventId)->get('transaction_id');
+        //dd($trans_id);
+        DB::table('transactions')->where('id', '=',$request->transId)->update(['transaction_id'=> $transid, 'amount'=>$total]);
         return response()->json($url->data);
     }
-    public function success($uid, $eventId){
-        DB::table('events')->where('id', '=', $eventId)->update(['statusId' => 1]);
+    public function success($uid, $transId){
+        DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1]);
         return redirect('/dashboard?user=' . $uid);
         //ovverlaping edit date
     }

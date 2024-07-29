@@ -8,7 +8,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import jQuery from 'jquery';
 window.$ = jQuery
 
-
 $(document).ready(function() {
 	display_events();
     $('#table').hide()
@@ -54,7 +53,7 @@ $(document).ready(function() {
                             color = 'red'
                     }
                     else{
-                        switch (response[i].statusId) {
+                        switch (response[i].status_id) {
                             case 1:
                                 color = 'green'
                                 break;
@@ -130,6 +129,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response){
                 // data = response
+                //console.log(response)
                 $.each(response, function(i){
                     if(response[i].clientId == uid){
                         var tbrow = `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -157,7 +157,7 @@ $(document).ready(function() {
                         </tr>`;
                         $('#tbody').append(tbrow);
                     }
-                    if(response[i].statusId == 1){
+                    if(response[i].status_id == 1){
                         $("#" + response[i].id +"-e").hide()
                         $("#" + response[i].id +"-r").show()
                     }else{
@@ -193,7 +193,7 @@ $(document).ready(function() {
                         $("#initialdate1").val(response[i].eventStart)
                         $("#initialdate2").val(response[i].eventEnd)
                         $("#updEventSubmit").val(response[i].id)
-                        $("#paybtn").val(response[i].id)
+                        $("#paybtn").val(response[i].transaction_id)
 
                         if(response[i].statusId == 1){
                             $("#paybtn").hide()
@@ -210,7 +210,7 @@ $(document).ready(function() {
                         }
                     })
                     $(document).on('click', '#' + response[i].id + '-r', function(){
-                        console.log('button click')
+                        //console.log('button click')
                         $("#receipt").click()
                     })
 
@@ -248,7 +248,7 @@ $(document).ready(function() {
         })
     })
     $("#paybtn").on('click', function(){
-        let eventId = $("#paybtn").val()
+        let transId = $("#paybtn").val()
         let eventName = $("#updEventName").val()
         let eventStart = $("#updStartDate").val()
         let eventEnd = $("#updEndDate").val()
@@ -260,7 +260,7 @@ $(document).ready(function() {
             method: 'post',
             dataType: 'json',
             data:{
-                eventId: eventId,
+                transId: transId,
                 uid: uid,
                 eventName: eventName,
                 eventStart: eventStart,
@@ -295,4 +295,21 @@ $(document).ready(function() {
         $("#total").text('PHP ' + formatted)
         $("#total").val(number)
     })
+    $("#receipt").on('click', function(){
+        $("#pTitle")
+        $("#pName")
+        $("#pEmail")
+        $("#pDescrip")
+        $("#pCost")
+        $("#pTotal")
+    })
+    $("#print").on('click',function(){
+        $("#printArea").printThis({})
+
+    })
 }); //end document.ready block
+//print function
+//delete event
+//profile
+//notify
+//admin side

@@ -22,6 +22,12 @@ return new class extends Migration
         Schema::create('status', function(Blueprint $table){
             $table->increments('id');
             $table->string('status');
+            $table->timestamps();
+        });
+        Schema::create('usertype', function(Blueprint $table){
+            $table->increments('id');
+            $table->string('usertype');
+            $table->timestamps();
         });
         Schema::create('users', function(Blueprint $table){
             $table->increments('id');
@@ -30,6 +36,16 @@ return new class extends Migration
             $table->string('lastname');
             $table->unsignedInteger('login_id');
             $table->foreign('login_id')->references('id')->on('logins')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedInteger('usertype_id');
+            $table->foreign('usertype_id')->references('id')->on('usertype')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
+        });
+        Schema::create('transactions', function(Blueprint $table){
+            $table->increments('id');
+            $table->string('transaction_id');
+            $table->integer('amount');
+            $table->unsignedInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
         Schema::create('events', function(Blueprint $table){
@@ -37,16 +53,17 @@ return new class extends Migration
             $table->string('eventName');
             $table->date('eventStart');
             $table->date('eventEnd');
-            $table->string('transactionId');
             $table->unsignedInteger('clientId');
             $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedInteger('statusId');
-            $table->foreign('statusId')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedInteger('transaction_id');
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
-        DB::table('status')->insert(['status' => 'paid']);
-        DB::table('status')->insert(['status' => 'pending']);
-        DB::table('status')->insert(['status' => 'booked']);
+        DB::table('status')->insert(['status' => 'paid', 'created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('status')->insert(['status' => 'pending', 'created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('status')->insert(['status' => 'booked', 'created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('usertype')->insert(['usertype'=>'admin', 'created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('usertype')->insert(['usertype'=>'client', 'created_at'=>now(), 'updated_at'=>now()]);
     }
 
     /**
@@ -55,7 +72,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('events');
+        Schema::drop('transactions');
         Schema::dropIfExists('users');
+        Schema::drop('usertype');
         Schema::drop('status');
         Schema::dropIfExists('logins');
     }

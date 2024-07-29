@@ -1,9 +1,3 @@
-<?php
-print session()->get('id');
-if (session()->get('id') == 2) {
-    header('location: /');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -301,7 +295,7 @@ if (session()->get('id') == 2) {
     <button id="receipt" data-modal-target="receipt-modal" data-modal-toggle="receipt-modal"
         class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button">
-        Edit
+        Receipt
     </button>
     <div id="receipt-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -326,27 +320,24 @@ if (session()->get('id') == 2) {
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4">
-                    <button
-                        class="focus:outline-none text-white bg-gray-800 hover:bg-gray-800 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                        onclick="window.print('printArea')">
+                    <button id="print"
+                        class="focus:outline-none text-white bg-gray-800 hover:bg-gray-800 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Print
                     </button>
                     <div id="printArea" class="bg-white border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
-                        <h1 class="font-bold text-2xl my-4 text-center text-blue-600">KRP Services</h1>
+                        <h1 class="font-bold text-2xl my-4 text-center text-blue-600">People Center Tacloban</h1>
                         <hr class="mb-2">
                         <div class="flex justify-between mb-6">
-                            <h1 class="text-lg font-bold">Invoice</h1>
+                            <h1 class="text-lg font-bold" id="pTitle">Invoice</h1>
                             <div class="text-gray-700">
-                                <div>Date: 01/05/2023</div>
-                                <div>Invoice #: INV12345</div>
+                                <div id="pDate">Date: 01/05/2023</div>
+                                <div id="pTransId">Invoice #: INV12345</div>
                             </div>
                         </div>
                         <div class="mb-8">
                             <h2 class="text-lg font-bold mb-4">Bill To:</h2>
-                            <div class="text-gray-700 mb-2">John Doe</div>
-                            <div class="text-gray-700 mb-2">123 Main St.</div>
-                            <div class="text-gray-700 mb-2">Anytown, USA 12345</div>
-                            <div class="text-gray-700">johndoe@example.com</div>
+                            <div class="text-gray-700 mb-2" id="pName">John Doe</div>
+                            <div class="text-gray-700" id="pEmail">johndoe@example.com</div>
                         </div>
                         <table class="w-full mb-8">
                             <thead>
@@ -357,22 +348,14 @@ if (session()->get('id') == 2) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-left text-gray-700">Product 1</td>
-                                    <td class="text-right text-gray-700">$100.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left text-gray-700">Product 2</td>
-                                    <td class="text-right text-gray-700">$50.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left text-gray-700">Product 3</td>
-                                    <td class="text-right text-gray-700">$75.00</td>
+                                    <td class="text-left text-gray-700" id="pDescrip">Product 1</td>
+                                    <td class="text-right text-gray-700" id="pCost">$100.00</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="text-left font-bold text-gray-700">Total</td>
-                                    <td class="text-right font-bold text-gray-700">$225.00</td>
+                                    <td class="text-right font-bold text-gray-700" id="pTotal">$225.00</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -384,6 +367,5 @@ if (session()->get('id') == 2) {
         </div>
     </div>
 </body>
-
 
 </html>

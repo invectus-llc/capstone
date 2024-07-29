@@ -34,7 +34,7 @@ $('#signup').on('click', function () {
         success: function(response){
             var login_id = response.id
             if (response){
-                console.log(response)
+                //console.log(response)
                 $.ajax({
                     url: '/api/users',
                     method: 'post',

@@ -13,7 +13,8 @@ class UsersController extends Controller
             'email' => $request->email,
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
-            'login_id' => $request->login_id
+            'login_id' => $request->login_id,
+            'usertype_id'=>2
         ]);
         return response()->json(Response::HTTP_CREATED);
     }
