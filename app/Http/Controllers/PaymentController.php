@@ -11,7 +11,8 @@ class PaymentController extends Controller
 {
     public function pay(Request $request){
         $transid = '';
-        $client = new \GuzzleHttp\Client();
+        $item = $request;
+        $total = $item->total * 100;
         $auth = 'c2tfdGVzdF85ZW1Va0o2TjNHYXhtZ2VQRjY5WVdSaWo6';
         $client = new \GuzzleHttp\Client();
 
@@ -22,13 +23,13 @@ class PaymentController extends Controller
                     "send_email_receipt":false,
                     "show_description":true,
                     "show_line_items":true,
-                    "description":"test",
+                    "description":"Function Hall Rental For: '.$item->eventName. ', From: '.$item->eventStart.', To: '.$item->eventEnd.'",
                     "line_items":[{
                         "currency":"PHP",
-                        "amount":2000,
-                        "description":"test item",
-                        "name":"test name",
-                        "quantity":1
+                        "amount":8000000,
+                        "description":"Rental Fee",
+                        "name":"Days",
+                        "quantity":'.$item->eventDays.'
                     }],
                     "payment_method_types":[
                         "qrph",

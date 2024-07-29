@@ -297,6 +297,92 @@ if (session()->get('id') == 2) {
             </div>
         </div>
     </div>
+    {{-- receipt button --}}
+    <button id="receipt" data-modal-target="receipt-modal" data-modal-toggle="receipt-modal"
+        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        Edit
+    </button>
+    <div id="receipt-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Event Details
+                    </h3>
+                    <button type="button" id='updCloseModal'
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="receipt-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 space-y-4">
+                    <button
+                        class="focus:outline-none text-white bg-gray-800 hover:bg-gray-800 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                        onclick="window.print('printArea')">
+                        Print
+                    </button>
+                    <div id="printArea" class="bg-white border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
+                        <h1 class="font-bold text-2xl my-4 text-center text-blue-600">KRP Services</h1>
+                        <hr class="mb-2">
+                        <div class="flex justify-between mb-6">
+                            <h1 class="text-lg font-bold">Invoice</h1>
+                            <div class="text-gray-700">
+                                <div>Date: 01/05/2023</div>
+                                <div>Invoice #: INV12345</div>
+                            </div>
+                        </div>
+                        <div class="mb-8">
+                            <h2 class="text-lg font-bold mb-4">Bill To:</h2>
+                            <div class="text-gray-700 mb-2">John Doe</div>
+                            <div class="text-gray-700 mb-2">123 Main St.</div>
+                            <div class="text-gray-700 mb-2">Anytown, USA 12345</div>
+                            <div class="text-gray-700">johndoe@example.com</div>
+                        </div>
+                        <table class="w-full mb-8">
+                            <thead>
+                                <tr>
+                                    <th class="text-left font-bold text-gray-700">Description</th>
+                                    <th class="text-right font-bold text-gray-700">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-left text-gray-700">Product 1</td>
+                                    <td class="text-right text-gray-700">$100.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-gray-700">Product 2</td>
+                                    <td class="text-right text-gray-700">$50.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left text-gray-700">Product 3</td>
+                                    <td class="text-right text-gray-700">$75.00</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td class="text-left font-bold text-gray-700">Total</td>
+                                    <td class="text-right font-bold text-gray-700">$225.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="text-gray-700 mb-2">Thank you for your business!</div>
+                        <div class="text-gray-700 text-sm">Please remit payment within 30 days.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 
