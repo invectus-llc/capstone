@@ -11,9 +11,13 @@ window.$ = jQuery
 $(document).ready(function() {
 	display_events();
     $('#table').hide()
+    $("#profile").hide()
+    $("#transactionsList").hide()
     $("#updModal").hide()
     $("#initialdate1").hide()
     $("#initialdate2").hide()
+    $("#receipt").hide()
+    $("#delEvent").hide()
 
     const queryString = new URLSearchParams(window.location.search);
     const uid = queryString.get('user')
@@ -117,11 +121,36 @@ $(document).ready(function() {
     $('#dashboard').on('click',function(){
         $('#calendar').show()
         $("#table").hide()
+        $("#profile").hide()
         display_events()
+    })
+    $("#user").on('click', function(){
+        $("#profile").show()
+        $('#calendar').hide()
+        $("#table").hide()
+        $.ajax({
+            url: '/api/users/' + uid,
+            method: 'get',
+            dataType: 'json',
+            success: function(response){
+                console.log(response)
+                $('#profileName').text(response[0].firstname + ' ' + response[0].lastname)
+                $('#profileEmail').text(response[0].email)
+            }
+        })
+    })
+    $("#profileInfo").on('click', function(){
+        $("#transactionsList").hide()
+        $("#info").show()
+    })
+    $("#profileTrans").on('click', function(){
+        $("#transactionsList").show()
+        $("#info").hide()
     })
     $('#events').on('click', function(){
         $("#tbody tr").remove()
         $('#calendar').hide()
+        $("#profile").hide()
         $("#table").show()
         $.ajax({
             url: '/api/events',
@@ -147,9 +176,14 @@ $(document).ready(function() {
                             ${response[i].status.toUpperCase()}
                         </td>
                         <td class="px-6 py-4 flex justify-center">
-                            <button id="${response[i].id}-e" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                                Edit
-                            </button>
+                            <div class="flex flex-col justify-between">
+                                <button id="${response[i].id}-e" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    Edit
+                                </button>
+                                <button id="${response[i].id}-d" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" type="button">
+                                    Delete
+                                </button>
+                            </div>
                             <button id="${response[i].id}-r" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                 Receipt
                             </button>
@@ -159,9 +193,11 @@ $(document).ready(function() {
                     }
                     if(response[i].status_id == 1){
                         $("#" + response[i].id +"-e").hide()
+                        $("#" + response[i].id +"-d").hide()
                         $("#" + response[i].id +"-r").show()
                     }else{
                         $("#" + response[i].id +"-e").show()
+                        $("#" + response[i].id +"-d").show()
                         $("#" + response[i].id +"-r").hide()
                     }
                     $(document).on('click','#' + response[i].id + '-e', function(){
@@ -211,7 +247,13 @@ $(document).ready(function() {
                     })
                     $(document).on('click', '#' + response[i].id + '-r', function(){
                         //console.log('button click')
+                        $("#receipt").val(response[i].id)
                         $("#receipt").click()
+                    })
+                    $(document).on('click', '#' + response[i].id + '-d', function(){
+                        //console.log('button click')
+                        $("#delEventId").val(response[i].id)
+                        $("#delEvent").click()
                     })
 
                 })
@@ -227,25 +269,30 @@ $(document).ready(function() {
         let eventEnd = $("#updEndDate").val()
         let initialdate1 = $("#initialdate1").val()
         let initialdate2 = $("#initialdate2").val()
-        $.ajax({
-            url: '/api/events',
-            method: 'patch',
-            dataType: 'json',
-            data:{
-                id: id,
-                eventName: eventName,
-                eventStart: eventStart,
-                eventEnd: eventEnd,
-                initialdate1: initialdate1,
-                initialdate2: initialdate2
-            },
-            success: function(response){
-                //console.log(response)
-                alert(response)
-                $("#updCloseModal").click()
-                $("#events").click()
-            }
-        })
+        if (eventStart >= eventEnd) {
+            alert('Starting Date should NOT be less than Ending Date!')
+        }
+        else{
+            $.ajax({
+                url: '/api/events',
+                method: 'patch',
+                dataType: 'json',
+                data:{
+                    id: id,
+                    eventName: eventName,
+                    eventStart: eventStart,
+                    eventEnd: eventEnd,
+                    initialdate1: initialdate1,
+                    initialdate2: initialdate2
+                },
+                success: function(response){
+                    //console.log(response)
+                    alert(response)
+                    $("#updCloseModal").click()
+                    $("#events").click()
+                }
+            })
+        }
     })
     $("#paybtn").on('click', function(){
         let transId = $("#paybtn").val()
@@ -296,20 +343,49 @@ $(document).ready(function() {
         $("#total").val(number)
     })
     $("#receipt").on('click', function(){
-        $("#pTitle")
-        $("#pName")
-        $("#pEmail")
-        $("#pDescrip")
-        $("#pCost")
-        $("#pTotal")
-    })
-    $("#print").on('click',function(){
-        $("#printArea").printThis({})
+        let eventId = $('#receipt').val()
+        let res = new Array()
+        $.ajax({
+            url: '/api/events/' + eventId,
+            method:'get',
+            dataType: 'json',
+            success: function(response){
+                console.log(response)
 
+                let date1 = new Date(response[0].eventStart)
+                let date2 = new Date(response[0].eventEnd)
+                let Difference_In_Time = date2.getTime() - date1.getTime()
+                let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+
+                let number = Number(Math.round((Difference_In_Days* 80000) * 100) / 100)
+                const options = {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                    };
+                const formatted = Number(number).toLocaleString('en', options);
+
+                $("#pDate").text("Date: " + moment(response[0].updated_at).format('YYYY-MM-DD'))
+                $("#pTransId").text('Transaction Id: ' + response[0].transaction_id)
+                $("#pName").text(response[0].firstname + ' ' + response[0].lastname)
+                $("#pEmail").text(response[0].email)
+                $("#pDescrip").text(Difference_In_Days)
+                $("#pTotal").text('PHP ' + formatted)
+            }
+        })
+    })
+    $("#delEventAgree").on('click', function(){
+        let id = $("#delEventId").val()
+        $.ajax({
+            url:'/api/events/' + id,
+            method: 'delete',
+            dataType: 'json',
+            success: function(){
+                $("#events").click()
+            }
+        })
     })
 }); //end document.ready block
-//print function
-//delete event
-//profile
+
+//profile with recent transaction
 //notify
 //admin side

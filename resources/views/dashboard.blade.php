@@ -68,7 +68,7 @@
                             class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">10</span>
                     </a>
                 </li>
-                <li>
+                <li id="user">
                     <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -125,12 +125,148 @@
                     </tbody>
                 </table>
             </div>
+            <!-- component -->
+            <div class="container my-16" id="profile">
+                <div>
+                    <div class="bg-white relative shadow rounded-lg w-5/6 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
+                        <div class="flex justify-center">
+                            <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt=""
+                                class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                        </div>
+
+                        <div class="mt-16">
+                            <h1 class="font-bold text-center text-3xl text-gray-900" id='profileName'>Benki Software
+                            </h1>
+                            <p class="text-center text-sm text-gray-400 font-medium" id='profileEmail'>UI Components
+                                Factory</p>
+                            <p>
+                                <span>
+
+                                </span>
+                            </p>
+                            <div class="flex justify-between items-center my-5 px-6">
+                                <a id="profileInfo"
+                                    class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Info</a>
+                                <a id="profileTrans"
+                                    class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">
+                                    Transactions</a>
+                            </div>
+
+                            <div id="info" class="w-full">
+                                <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>
+                                <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+
+                                    <form class="max-w-md mx-auto">
+                                        <div class="relative z-0 w-full mb-5 group">
+                                            <input type="email" name="floating_email" id="floating_email"
+                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" " required />
+                                            <label for="floating_email"
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email
+                                                address</label>
+                                        </div>
+                                        <div class="relative z-0 w-full mb-5 group">
+                                            <input type="password" name="floating_password" id="floating_password"
+                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" " required />
+                                            <label for="floating_password"
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+                                        </div>
+                                        <div class="relative z-0 w-full mb-5 group">
+                                            <input type="password" name="repeat_password"
+                                                id="floating_repeat_password"
+                                                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" " required />
+                                            <label for="floating_repeat_password"
+                                                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm
+                                                password</label>
+                                        </div>
+                                        <div class="grid md:grid-cols-2 md:gap-6">
+                                            <div class="relative z-0 w-full mb-5 group">
+                                                <input type="text" name="floating_first_name"
+                                                    id="floating_first_name"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " required />
+                                                <label for="floating_first_name"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First
+                                                    name</label>
+                                            </div>
+                                            <div class="relative z-0 w-full mb-5 group">
+                                                <input type="text" name="floating_last_name"
+                                                    id="floating_last_name"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " required />
+                                                <label for="floating_last_name"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last
+                                                    name</label>
+                                            </div>
+                                        </div>
+                                        <div class="grid md:grid-cols-2 md:gap-6">
+                                            <div class="relative z-0 w-full mb-5 group">
+                                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                                    name="floating_phone" id="floating_phone"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " required />
+                                                <label for="floating_phone"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone
+                                                    number (123-456-7890)</label>
+                                            </div>
+                                            <div class="relative z-0 w-full mb-5 group">
+                                                <input type="text" name="floating_company" id="floating_company"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " required />
+                                                <label for="floating_company"
+                                                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Company
+                                                    (Ex. Google)</label>
+                                            </div>
+                                        </div>
+                                        <button type="submit"
+                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div id="transactionsList" class="w-full">
+                                <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>
+                                <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+                                    <a href="#"
+                                        class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4"
+                                            alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+                                        Posted new article in <span class="font-bold">#Web Dev</span>
+                                        <span class="text-gray-500 text-xs">49 min ago</span>
+                                    </a>
+
+                                    <a href="#"
+                                        class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4"
+                                            alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+                                        Edited website settings
+                                        <span class="text-gray-500 text-xs">1 day ago</span>
+                                    </a>
+
+                                    <a href="#"
+                                        class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150 overflow-hidden">
+                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4"
+                                            alt="" class="rounded-full h-6 shadow-md inline-block mr-2">
+                                        Added new rank
+                                        <span class="text-gray-500 text-xs">5 days ago</span>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
     </div>
 
     <!-- Modal toggle -->
-    <button id="add-event" data-modal-target="addevent-modal" data-modal-toggle="addevent-modal" type="button" hidden>
+    <button id="add-event" data-modal-target="addevent-modal" data-modal-toggle="addevent-modal" type="button"
+        hidden>
     </button>
 
     <!-- Main modal -->
@@ -284,9 +420,49 @@
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Update</button>
                         <button type="button" id='paybtn'
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                             Payment</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- delete modal --}}
+    <button hidden data-modal-target="delete-modal" data-modal-toggle="delete-modal" id="delEvent"
+        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        Toggle modal
+    </button>
+    <div id="delete-modal" tabindex="-1"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" id="delEventClose"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="delete-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <h3 id="delEventId" class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure
+                        you want to
+                        delete this event?</h3>
+                    <button data-modal-hide="delete-modal" type="button" id="delEventAgree"
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Yes, I'm sure
+                    </button>
+                    <button data-modal-hide="delete-modal" type="button"
+                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
+                        cancel</button>
                 </div>
             </div>
         </div>
@@ -320,15 +496,15 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4">
-                    <button id="print"
+                    <button id="print" onclick="window.print()"
                         class="focus:outline-none text-white bg-gray-800 hover:bg-gray-800 focus:ring-4 focus:ring-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                         Print
                     </button>
                     <div id="printArea" class="bg-white border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
                         <h1 class="font-bold text-2xl my-4 text-center text-blue-600">People Center Tacloban</h1>
                         <hr class="mb-2">
-                        <div class="flex justify-between mb-6">
-                            <h1 class="text-lg font-bold" id="pTitle">Invoice</h1>
+                        <div class="mb-6">
+                            <h1 class="text-lg font-bold" id="pTitle">Receipt</h1>
                             <div class="text-gray-700">
                                 <div id="pDate">Date: 01/05/2023</div>
                                 <div id="pTransId">Invoice #: INV12345</div>
@@ -342,19 +518,25 @@
                         <table class="w-full mb-8">
                             <thead>
                                 <tr>
+                                    <th class="text-left font-bold text-gray-700">Function Hall Rental</th>
+                                </tr>
+                                <tr>
                                     <th class="text-left font-bold text-gray-700">Description</th>
+                                    <th class="text-center font-bold text-gray-700">Quantity</th>
                                     <th class="text-right font-bold text-gray-700">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-left text-gray-700" id="pDescrip">Product 1</td>
-                                    <td class="text-right text-gray-700" id="pCost">$100.00</td>
+                                    <td class="text-left text-gray-700">Days</td>
+                                    <td class="text-center text-gray-700" id="pDescrip">Product 1</td>
+                                    <td class="text-right text-gray-700" id="pCost">PHP 80,000.00</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td class="text-left font-bold text-gray-700">Total</td>
+                                    <td class="text-center text-gray-700" disabled></td>
                                     <td class="text-right font-bold text-gray-700" id="pTotal">$225.00</td>
                                 </tr>
                             </tfoot>

@@ -14,6 +14,7 @@ class EventsController extends Controller
         $data = DB::table('events')
         ->join('transactions', 'transactions.id', '=', 'events.transaction_id')
         ->join('status', 'status.id', '=', 'transactions.status_id')
+        ->where('is_deleted', '=', false)
         ->select('events.*', 'transactions.status_id', 'status')->get();
         return response()->json($data);
     }
@@ -31,15 +32,21 @@ class EventsController extends Controller
             'eventStart' => $request->startDate,
             'eventEnd' => $request->endDate,
             'clientId' => $request->clientId,
-            'transaction_id'=>$trans_id[0]->id
+            'transaction_id'=>$trans_id[0]->id,
+            'is_deleted'=> false
         ]);
         return response()->json(Response::HTTP_CREATED);
     }
     public function updEvent(Request $request){
         //dd($request);
         try {
-            $input = DB::table('events')->where([['eventStart', '!=', $request->initialdate1],['eventEnd', '!=', $request->initialdate2]])->get();
-            if(count($input) == 0){
+            $input = DB::table('events')
+            ->where([
+                ['eventStart', '!=', $request->initialdate1],
+                ['eventEnd', '!=', $request->initialdate2],
+                ['is_deleted', '=', false]
+            ])->get();
+            if(count($input) === 0){
                 DB::table('events')
                 ->where('id', '=', $request->id)
                 ->update([
@@ -49,36 +56,45 @@ class EventsController extends Controller
                 ]);
                 $response = 'Event Updated!';
             }else{
-                for ($i=0; $i < count($input); $i++) {
-                    if($request['eventStart'] < $input[$i]->eventEnd && $request['eventStart'] >= $input[$i]->eventStart){
-                        if($request['eventEnd'] > $input[$i]->eventStart && $request['eventEnd'] <= $input[$i]->eventEnd){
-                            $response = 'Ending Date Already Booked!';
-                            break;
-                        }
-                        $response = 'Starting Date Already Booked!';
+                $response = null;
+
+                foreach ($input as $inp) {
+                    if ($request['eventStart'] < $inp->eventEnd && $request['eventStart'] >= $inp->eventStart) {
+                        $response = 'Starting Date or Ending Date Already Booked!';
                         break;
-                    }elseif ($request['eventEnd'] > $input[$i]->eventStart && $request['eventEnd'] <= $input[$i]->eventEnd) {
-                        $response = 'Ending Date Already Booked!';
+                    } elseif ($request['eventEnd'] >= $inp->eventStart && $request['eventEnd'] < $inp->eventEnd) {
+                        $response = 'Starting Date or Ending Date Already Booked!';
                         break;
-                    }else{
-                        DB::table('events')
+                    }
+                }
+                if ($response === null) {
+                    DB::table('events')
                         ->where('id', '=', $request->id)
                         ->update([
                             'eventName' => $request->eventName,
                             'eventStart' => $request->eventStart,
                             'eventEnd' => $request->eventEnd,
                         ]);
-                        $response = 'Event Updated!';
-                    }
+                    $response = 'Event Updated!';
                 }
             }
-            return response()->json($response, Response::HTTP_OK);
         } catch (\Throwable $th) {
             throw $th;
+        }finally{
+            return response()->json($response, Response::HTTP_OK);
         }
-
-        //dd($input);
-
-
+    }
+    public function receipt($id){
+        $data = DB::table('events')
+        ->join('transactions', 'transactions.id', '=', 'events.transaction_id')
+        ->join('status', 'status.id', '=', 'transactions.status_id')
+        ->join('users', 'events.clientId', '=', 'users.id')
+        ->where('events.id', '=', $id)
+        ->get();
+        return response()->json($data, Response::HTTP_OK);
+    }
+    public function delEvent($id){
+        DB::table('events')->where('id', '=', $id)->update(['is_deleted'=> true]);
+        return response()->json(Response::HTTP_OK);
     }
 }

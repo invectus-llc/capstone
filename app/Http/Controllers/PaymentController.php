@@ -58,7 +58,7 @@ class PaymentController extends Controller
         return response()->json($url->data);
     }
     public function success($uid, $transId){
-        DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1]);
+        DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1, 'updated_at'=>now()]);
         return redirect('/dashboard?user=' . $uid);
         //ovverlaping edit date
     }

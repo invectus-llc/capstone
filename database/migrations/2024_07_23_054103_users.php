@@ -57,6 +57,7 @@ return new class extends Migration
             $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('transaction_id');
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
+            $table->boolean('is_deleted');
             $table->timestamps();
         });
         DB::table('status')->insert(['status' => 'paid', 'created_at'=>now(), 'updated_at'=>now()]);

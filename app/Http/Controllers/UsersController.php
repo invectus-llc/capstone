@@ -18,4 +18,8 @@ class UsersController extends Controller
         ]);
         return response()->json(Response::HTTP_CREATED);
     }
+    public function user($id){
+        $data = Users::where('users.id', '=', $id)->join('logins', 'logins.id', '=', 'users.login_id')->get();
+        return response()->json($data, Response::HTTP_OK);
+    }
 }

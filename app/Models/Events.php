@@ -15,5 +15,6 @@ class Events extends Model
         'eventEnd',
         'clientId',
         'transaction_id',
+        'is_deleted'
     ];
 }

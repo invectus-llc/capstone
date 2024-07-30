@@ -11,13 +11,16 @@ use App\Http\Controllers\PaymentController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 Route::get('/events',[EventsController::class, 'dashboard']);
+Route::get('/events/{id}',[EventsController::class, 'receipt']);
 Route::post('/events', [EventsController::class,'addEvent']);
 Route::patch('/events', [EventsController::class,'updEvent']);
+Route::delete('/events/{id}', [EventsController::class,'delEvent']);
 
 Route::post('/login', [LoginController::class, 'register']);
 Route::get('/login', [LoginController::class, 'login']);
 
 Route::post('/users', [UsersController::class, 'register']);
+Route::get('/users/{id}', [UsersController::class, 'user']);
 
 Route::get('/success/{uid}/{eventId}', [PaymentController::class,'success']);
 Route::post('/pay', [PaymentController::class, 'pay']);
