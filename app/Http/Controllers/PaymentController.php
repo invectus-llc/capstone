@@ -59,6 +59,12 @@ class PaymentController extends Controller
     }
     public function success($uid, $transId){
         DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1, 'updated_at'=>now()]);
+        DB::table('logs')->insert([
+            'user_id'=>$uid,
+            'description'=>'successfully paid an event',
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
         return redirect('/dashboard?user=' . $uid);
         //ovverlaping edit date
     }

@@ -125,6 +125,8 @@ $(document).ready(function() {
         display_events()
     })
     $("#user").on('click', function(){
+        $("#profileTable tr").remove()
+        $("#profileInfo").click()
         $("#profile").show()
         $('#calendar').hide()
         $("#table").hide()
@@ -133,9 +135,56 @@ $(document).ready(function() {
             method: 'get',
             dataType: 'json',
             success: function(response){
-                console.log(response)
+                //console.log(response)
                 $('#profileName').text(response[0].firstname + ' ' + response[0].lastname)
                 $('#profileEmail').text(response[0].email)
+                $("#profile_email").val(response[0].email)
+                $("#profile_password").val(response[0].password)
+                $("#profile_first_name").val(response[0].firstname)
+                $("#profile_last_name").val(response[0].lastname)
+                $("#profile_phone").val(response[0].contact_no)
+            }
+        })
+        $.ajax({
+            url: '/api/logs/' + uid,
+            method: 'get',
+            dataType: 'json',
+            success: function(response){
+                //console.log(response)
+                $.each(response, function(i){
+                    var trow = `<tr><td>
+                    <p
+                        class="border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                        ${response[i].description.toUpperCase()}
+                        <span class="text-gray-500 text-xs">${moment(response[i].created_at).format('YYYY-MM-DD')}</span>
+                    </p>
+                    </td></tr>`
+                    $("#profileTable").append(trow)
+                })
+            }
+        })
+    })
+    $("#profileUpdate").on('click', function(){
+        let email = $("#profile_email").val()
+        let pw = $("#profile_password").val()
+        let fname = $("#profile_first_name").val()
+        let lname = $("#profile_last_name").val()
+        let contact = $("#profile_phone").val()
+
+        $.ajax({
+            url: '/api/users/' + uid,
+            method: 'patch',
+            dataType: 'json',
+            data: {
+                email: email,
+                pw: pw,
+                fname: fname,
+                lname: lname,
+                contact: contact
+            },
+            success: function(){
+                alert("Profile Updated!")
+                $("#user").click()
             }
         })
     })
@@ -283,7 +332,8 @@ $(document).ready(function() {
                     eventStart: eventStart,
                     eventEnd: eventEnd,
                     initialdate1: initialdate1,
-                    initialdate2: initialdate2
+                    initialdate2: initialdate2,
+                    clientId: uid
                 },
                 success: function(response){
                     //console.log(response)
@@ -379,6 +429,9 @@ $(document).ready(function() {
             url:'/api/events/' + id,
             method: 'delete',
             dataType: 'json',
+            data:{
+                clientId: uid
+            },
             success: function(){
                 $("#events").click()
             }
@@ -386,6 +439,5 @@ $(document).ready(function() {
     })
 }); //end document.ready block
 
-//profile with recent transaction
 //notify
 //admin side

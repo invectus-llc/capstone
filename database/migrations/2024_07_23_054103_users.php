@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('firstname');
             $table->string('lastname');
+            $table->bigInteger('contact_no');
             $table->unsignedInteger('login_id');
             $table->foreign('login_id')->references('id')->on('logins')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('usertype_id');
@@ -60,6 +61,13 @@ return new class extends Migration
             $table->boolean('is_deleted');
             $table->timestamps();
         });
+        Schema::create('logs', function(Blueprint $table){
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('description');
+            $table->timestamps();
+        });
         DB::table('status')->insert(['status' => 'paid', 'created_at'=>now(), 'updated_at'=>now()]);
         DB::table('status')->insert(['status' => 'pending', 'created_at'=>now(), 'updated_at'=>now()]);
         DB::table('status')->insert(['status' => 'booked', 'created_at'=>now(), 'updated_at'=>now()]);
@@ -72,6 +80,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('logs');
         Schema::dropIfExists('events');
         Schema::drop('transactions');
         Schema::dropIfExists('users');

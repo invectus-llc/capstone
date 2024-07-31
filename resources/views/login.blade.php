@@ -275,6 +275,8 @@
                 <input id='suEmail' type="email" name="email" placeholder="Email" />
                 <input id='suFirstname' type="text" name="fname" placeholder="First Name" />
                 <input id='suLastname' type="text" name="lname" placeholder="Last Name" />
+                <input id='suContact' type="tel" name="contact" placeholder="Contact No."
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
                 <button type='button' id="signup">Sign Up</button>
             </form>
         </div>

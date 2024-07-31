@@ -12,6 +12,7 @@ class Users extends Model
         'email',
         'firstname',
         'lastname',
+        'contact_no',
         'login_id',
         'usertype_id'
     ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Logs;
 use App\Models\Transactions;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -35,6 +36,10 @@ class EventsController extends Controller
             'transaction_id'=>$trans_id[0]->id,
             'is_deleted'=> false
         ]);
+        Logs::create([
+            'user_id'=>$request->clientId,
+            'description'=>'created an event'
+        ]);
         return response()->json(Response::HTTP_CREATED);
     }
     public function updEvent(Request $request){
@@ -62,7 +67,7 @@ class EventsController extends Controller
                     if ($request['eventStart'] < $inp->eventEnd && $request['eventStart'] >= $inp->eventStart) {
                         $response = 'Starting Date or Ending Date Already Booked!';
                         break;
-                    } elseif ($request['eventEnd'] >= $inp->eventStart && $request['eventEnd'] < $inp->eventEnd) {
+                    } elseif ($request['eventEnd'] > $inp->eventStart && $request['eventEnd'] <= $inp->eventEnd) {
                         $response = 'Starting Date or Ending Date Already Booked!';
                         break;
                     }
@@ -75,6 +80,10 @@ class EventsController extends Controller
                             'eventStart' => $request->eventStart,
                             'eventEnd' => $request->eventEnd,
                         ]);
+                    Logs::create([
+                        'user_id'=>$request->clientId,
+                        'description'=>'updated an event'
+                    ]);
                     $response = 'Event Updated!';
                 }
             }
@@ -93,8 +102,12 @@ class EventsController extends Controller
         ->get();
         return response()->json($data, Response::HTTP_OK);
     }
-    public function delEvent($id){
+    public function delEvent(Request $request, $id){
         DB::table('events')->where('id', '=', $id)->update(['is_deleted'=> true]);
+        Logs::create([
+            'user_id'=>$request->clientId,
+            'description'=>'deleted an event'
+        ]);
         return response()->json(Response::HTTP_OK);
     }
 }

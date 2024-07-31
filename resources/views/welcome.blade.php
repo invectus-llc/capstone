@@ -10,50 +10,15 @@
 </head>
 
 <body class="bg-hero-pattern bg-no-repeat bg-cover bg-fixed" id="top">
-    <nav
-        class="backdrop-blur bg-opacity-25 bg-white dark:bg-gray-900 fixed w-full z-50 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+    <nav class="backdrop-blur bg-opacity-25 bg-white fixed w-full z-50 top-0 start-0 border-b border-gray-200">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#top" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">People Center Event
+                <span class="self-center text-2xl font-semibold whitespace-nowrap ">People Center Event
                     Booking</span>
             </a>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <button type="button"
-                    class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                    id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
-                    data-dropdown-placement="bottom">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full" src="" alt="">
-                </button>
-                <!-- Dropdown menu -->
-                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-                    id="user-dropdown">
-                    <div class="px-4 py-3">
-                        <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                        <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-                    </div>
-                    <ul class="py-2" aria-labelledby="user-menu-button">
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                                out</a>
-                        </li>
-                    </ul>
-                </div>
                 <button data-collapse-toggle="navbar-user" type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                     aria-controls="navbar-user" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -65,23 +30,23 @@
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
                 <ul
-                    class="flex flex-col font-medium p-4 md:p-0 mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                     <li>
                         <a href="/login"
-                            class="block py-2 px-3 text-blue-700 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                            class="block py-2 px-3 text-blue-700 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
                             aria-current="page">Book Now!</a>
                     </li>
                     <li>
                         <a href="#events"
-                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Events</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Events</a>
                     </li>
                     <li>
                         <a href="#about"
-                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a>
                     </li>
                     <li>
                         <a href="#contact"
-                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                            class="block py-2 px-3 text-gray-900 rounded hover:scale-110 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -105,13 +70,13 @@
                     <video class="object-cover w-full rounded-2xl h-96 md:h-full sm:w-full md:w-1/2 md:rounded-2xl"
                         src="/videos/vid1.mp4" autoplay controls muted loop></video>
                     <div class="flex flex-col justify-center p-4 leading-normal md:w-1/3">
-                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">DOT
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900">DOT
                             Eastern
                             Visayas</h5>
-                        <p class="text-sm mb-3 font-normal text-gray-700 dark:text-gray-400">Kultura Sinirangan event
+                        <p class="text-sm mb-3 font-normal text-gray-700">Kultura Sinirangan event
                             held at
                             the People’s Center and Library in Tacloban City! 🎶</p>
-                        <p class="text-sm mb-3 font-normal text-gray-700 dark:text-gray-400">We highlighted the rich
+                        <p class="text-sm mb-3 font-normal text-gray-700">We highlighted the rich
                             culture,
                             arts, and tourism of Eastern Visayas with stunning
                             performances in the Kanta Binisaya Choral Competition and the LOVE Eastern Visayas
@@ -121,7 +86,7 @@
                 <div
                     class="m-12 flex justify-center flex-col md:justify-evenly sm:justify-center md:flex-row sm:flex-col">
                     <div class="flex flex-col justify-center p-4 leading-normal md:w-1/3">
-                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">JCI
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900">JCI
                             TEMIONG AWARDS 2023</h5>
                     </div>
                     <div class="md:w-1/2 sm:w-full">
@@ -155,29 +120,25 @@
                             </div>
                             <div class="grid grid-cols-4 gap-4">
                                 <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh2.jpg"
-                                        alt="">
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh2.jpg" alt="">
                                 </div>
                                 <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh3.jpg"
-                                        alt="">
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh3.jpg" alt="">
                                 </div>
                                 <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh4.jpg"
-                                        alt="">
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh4.jpg" alt="">
                                 </div>
                                 <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh5.jpg"
-                                        alt="">
+                                    <img class="h-auto max-w-full rounded-lg" src="/images/pfh/fh5.jpg" alt="">
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex flex-col justify-center p-4 leading-normal md:w-1/3">
-                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900">
                             Pipols Food Hub Tacloban</h5>
-                        <p class="text-sm mb-3 font-normal text-gray-700 dark:text-gray-400">Food Place event
+                        <p class="text-sm mb-3 font-normal text-gray-700">Food Place event
                             held at
                             the People’s Center in Tacloban City!</p>
                     </div>
@@ -219,7 +180,7 @@
                             class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                             data-carousel-prev>
                             <span
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
                                 <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -232,7 +193,7 @@
                             class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
                             data-carousel-next>
                             <span
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 group-hover:bg-white/50 group-focus:ring-4 group-focus:ring-white group-focus:outline-none">
                                 <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -247,9 +208,9 @@
                 <div
                     class="m-12 flex justify-center flex-col md:justify-evenly sm:justify-center md:flex-row sm:flex-col">
                     <div class="flex flex-col justify-center p-4 leading-normal md:w-full">
-                        <h5 class="text-sm md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="text-sm md:text-2xl font-bold tracking-tight text-gray-900">
                             About Us</h5>
-                        <p class="text-md font-normal text-gray-700 dark:text-gray-400 text-justify">Welcome to
+                        <p class="text-md font-normal text-gray-700 text-justify">Welcome to
                             People Center,
                             a cherished historical landmark centrally located in Tacloban City. Established in 1979,
                             this architectural gem combines timeless elegance with modern amenities, offering a
@@ -265,7 +226,7 @@
                 <div
                     class="mx-12 flex justify-center flex-col md:justify-evenly sm:justify-center md:flex-row sm:flex-col">
                     <div class="flex flex-col justify-center p-4 leading-normal md:w-full">
-                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="text-sm mb-2 md:text-2xl font-bold tracking-tight text-gray-900">
                             Find Us Here!</h5>
                         <div id='map' class="p-36 z-10"></div>
                     </div>
@@ -278,15 +239,15 @@
                 <div class="md:flex md:justify-between">
                     <div class="mb-6 md:mb-0">
                         <div class="flex items-center">
-                            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">People
+                            <span class="self-center text-2xl font-semibold whitespace-nowrap">People
                                 Center</span>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Contact Us
+                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Contact Us
                             </h2>
-                            <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <ul class="text-gray-500 font-medium">
                                 <li class="mb-4">
                                     <p>(+63) 968-785-0645</p>
                                 </li>
@@ -296,8 +257,8 @@
                             </ul>
                         </div>
                         <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
-                            <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
+                            <ul class="text-gray-500 font-medium">
                                 <li class="mb-4">
                                     <button data-modal-target="privacy-modal" data-modal-toggle="privacy-modal"
                                         class="hover:underline">Privacy Policy</button>
@@ -309,9 +270,9 @@
                             </ul>
                         </div>
                         <div>
-                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources
+                            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources
                             </h2>
-                            <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <ul class="text-gray-500 font-medium">
                                 <li class="mb-4">
                                     <a href="https://flowbite.com/" class="hover:underline">Flowbite</a>
                                 </li>
@@ -327,7 +288,7 @@
                 </div>
                 <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <div class="sm:flex sm:items-center sm:justify-between">
-                    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#"
+                    <span class="text-sm text-gray-500 sm:text-center">© 2024 <a href="#"
                             class="hover:underline">People Center™</a>. All Rights Reserved.
                     </span>
                     <div class="flex mt-4 sm:justify-center sm:mt-0">
