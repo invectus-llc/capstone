@@ -11,13 +11,15 @@ use Illuminate\Support\Facades\DB;
 
 class EventsController extends Controller
 {
-    public function dashboard(){
+    public function dashboard(Request $request){
         $data = DB::table('events')
         ->join('transactions', 'transactions.id', '=', 'events.transaction_id')
         ->join('status', 'status.id', '=', 'transactions.status_id')
         ->where('is_deleted', '=', false)
         ->select('events.*', 'transactions.status_id', 'status')->get();
-        return response()->json($data);
+
+        $usertype = DB::table('users')->where('id', '=', $request->uid)->get('usertype_id');
+        return response()->json([$data, $usertype]);
     }
     public function addEvent(Request $request){
         //dd($request);
@@ -27,7 +29,7 @@ class EventsController extends Controller
             'status_id'=>2
         ]);
         $trans_id = DB::table('transactions')->latest('id')->get();
-        //dd($trans_id[0]->id);
+
         Events::create([
             'eventName' => $request->eventName,
             'eventStart' => $request->startDate,
@@ -38,19 +40,28 @@ class EventsController extends Controller
         ]);
         Logs::create([
             'user_id'=>$request->clientId,
-            'description'=>'created an event'
+            'description'=>'created an event: ' . $request->eventName,
         ]);
         return response()->json(Response::HTTP_CREATED);
     }
     public function updEvent(Request $request){
         //dd($request);
         try {
+            $description = null;
             $input = DB::table('events')
             ->where([
                 ['eventStart', '!=', $request->initialdate1],
                 ['eventEnd', '!=', $request->initialdate2],
                 ['is_deleted', '=', false]
             ])->get();
+
+            $user = DB::table('events')->where('id','=', $request->id)->get();
+            if($user[0]->clientId == $request->clientId){
+                $description = 'updated an event: ' . $user[0]->eventName;
+            } else{
+                $description = $user[0]->eventName . ' event updated by admin';
+            }
+
             if(count($input) === 0){
                 DB::table('events')
                 ->where('id', '=', $request->id)
@@ -58,6 +69,10 @@ class EventsController extends Controller
                     'eventName' => $request->eventName,
                     'eventStart' => $request->eventStart,
                     'eventEnd' => $request->eventEnd,
+                ]);
+                Logs::create([
+                    'user_id'=>$request->clientId,
+                    'description'=>$description,
                 ]);
                 $response = 'Event Updated!';
             }else{
@@ -81,8 +96,8 @@ class EventsController extends Controller
                             'eventEnd' => $request->eventEnd,
                         ]);
                     Logs::create([
-                        'user_id'=>$request->clientId,
-                        'description'=>'updated an event'
+                        'user_id'=>$user[0]->clientId,
+                        'description'=>$description,
                     ]);
                     $response = 'Event Updated!';
                 }
@@ -103,10 +118,19 @@ class EventsController extends Controller
         return response()->json($data, Response::HTTP_OK);
     }
     public function delEvent(Request $request, $id){
+        $description = null;
+        $user = DB::table('events')->where('id', '=', $id)->get();
+        //dd($user[0]->eventName);
+        if($user[0]->clientId == $request->clientId){
+            $description = 'deleted an event: ' . $user[0]->eventName;
+        } else{
+            $description = $user[0]->eventName . ' event deleted by admin';
+        }
+        //dd($description);
         DB::table('events')->where('id', '=', $id)->update(['is_deleted'=> true]);
         Logs::create([
-            'user_id'=>$request->clientId,
-            'description'=>'deleted an event'
+            'user_id'=>$user[0]->clientId,
+            'description'=>$description
         ]);
         return response()->json(Response::HTTP_OK);
     }

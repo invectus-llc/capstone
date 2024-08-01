@@ -73,6 +73,17 @@ return new class extends Migration
         DB::table('status')->insert(['status' => 'booked', 'created_at'=>now(), 'updated_at'=>now()]);
         DB::table('usertype')->insert(['usertype'=>'admin', 'created_at'=>now(), 'updated_at'=>now()]);
         DB::table('usertype')->insert(['usertype'=>'client', 'created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('logins')->insert(['username'=>'admin', 'password'=>'admin','created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('users')->insert([
+            'email'=>'admin@admin.com',
+            'firstname'=>'admin',
+            'lastname'=>'admin',
+            'contact_no'=>9451237896,
+            'login_id'=>1,
+            'usertype_id'=>1,
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
     }
 
     /**

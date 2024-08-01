@@ -58,10 +58,11 @@ class PaymentController extends Controller
         return response()->json($url->data);
     }
     public function success($uid, $transId){
+        $event = DB::table('events')->where('transaction_id', '=', $transId)->get();
         DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1, 'updated_at'=>now()]);
         DB::table('logs')->insert([
             'user_id'=>$uid,
-            'description'=>'successfully paid an event',
+            'description'=>'successfully paid event: ' . $event[0]->eventName,
             'created_at'=>now(),
             'updated_at'=>now()
         ]);

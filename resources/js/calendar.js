@@ -9,7 +9,6 @@ import jQuery from 'jquery';
 window.$ = jQuery
 
 $(document).ready(function() {
-	display_events();
     $('#table').hide()
     $("#profile").hide()
     $("#transactionsList").hide()
@@ -18,9 +17,11 @@ $(document).ready(function() {
     $("#initialdate2").hide()
     $("#receipt").hide()
     $("#delEvent").hide()
+    $("#act-table").hide()
 
     const queryString = new URLSearchParams(window.location.search);
     const uid = queryString.get('user')
+    display_events();
 
     function calendar(events){
         let calendarEl = document.getElementById('calendar');
@@ -50,14 +51,14 @@ $(document).ready(function() {
             url: '/api/events',
             method:'get',
             dataType: 'json',
+            data:{
+                uid: uid
+            },
             success: function (response) {
-                //console.log(response)
-                $.each(response, function (i) {
-                    if(response[i].clientId != uid){
-                            color = 'red'
-                    }
-                    else{
-                        switch (response[i].status_id) {
+                // console.log(response[1][0].usertype_id)
+                if(response[1][0].usertype_id === 1){
+                    $.each(response[0], function (i) {
+                        switch (response[0][i].status_id) {
                             case 1:
                                 color = 'green'
                                 break;
@@ -68,15 +69,41 @@ $(document).ready(function() {
                             default:
                                 break;
                         }
-                    }
-                        events.push({
-                        event_id: response[i].id,
-                        start: response[i].eventStart,
-                        end: response[i].eventEnd,
-                        display:'background',
-                        color: color
-                    });
-                })
+                            events.push({
+                            event_id: response[0][i].id,
+                            start: response[0][i].eventStart,
+                            end: response[0][i].eventEnd,
+                            title: response[0][i].eventName,
+                            color: color
+                        });
+                    })
+                }else{
+                    $.each(response[0], function (i) {
+                        if(response[0][i].clientId != uid){
+                                color = 'red'
+                        }
+                        else{
+                            switch (response[0][i].status_id) {
+                                case 1:
+                                    color = 'green'
+                                    break;
+                                case 2:
+                                    color = 'yellow'
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+                            events.push({
+                            event_id: response[0][i].id,
+                            start: response[0][i].eventStart,
+                            end: response[0][i].eventEnd,
+                            display:'background',
+                            color: color
+                        });
+                    })
+                }
                 calendar(events);
             },//end success block
             error: function (xhr, status) {
@@ -122,14 +149,15 @@ $(document).ready(function() {
         $('#calendar').show()
         $("#table").hide()
         $("#profile").hide()
+        $("#act-table").hide()
         display_events()
     })
     $("#user").on('click', function(){
-        $("#profileTable tr").remove()
         $("#profileInfo").click()
         $("#profile").show()
         $('#calendar').hide()
         $("#table").hide()
+        $("#act-table").hide()
         $.ajax({
             url: '/api/users/' + uid,
             method: 'get',
@@ -145,24 +173,7 @@ $(document).ready(function() {
                 $("#profile_phone").val(response[0].contact_no)
             }
         })
-        $.ajax({
-            url: '/api/logs/' + uid,
-            method: 'get',
-            dataType: 'json',
-            success: function(response){
-                //console.log(response)
-                $.each(response, function(i){
-                    var trow = `<tr><td>
-                    <p
-                        class="border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                        ${response[i].description.toUpperCase()}
-                        <span class="text-gray-500 text-xs">${moment(response[i].created_at).format('YYYY-MM-DD')}</span>
-                    </p>
-                    </td></tr>`
-                    $("#profileTable").append(trow)
-                })
-            }
-        })
+
     })
     $("#profileUpdate").on('click', function(){
         let email = $("#profile_email").val()
@@ -192,120 +203,261 @@ $(document).ready(function() {
         $("#transactionsList").hide()
         $("#info").show()
     })
-    $("#profileTrans").on('click', function(){
-        $("#transactionsList").show()
-        $("#info").hide()
+    $("#logs").on('click', function(){
+        $("#profileTable tr").remove()
+        $.ajax({
+            url: '/api/logs/' + uid,
+            method: 'get',
+            dataType: 'json',
+            success: function(response){
+                //console.log(response)
+                    //console.log(response)
+                    if(response[1][0].usertype_id === 1){
+                        $.each(response[0], function(i){
+                            var trow = `<tr><td>
+                            <p
+                                class="border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                Client ${response[0][i].firstname} ${response[0][i].lastname}:  ${response[0][i].description.toUpperCase()}
+                                <span class="text-gray-500 text-xs">${moment(response[0][i].created_at).format('YYYY-MM-DD')}</span>
+                            </p>
+                            </td></tr>`
+                            $("#profileTable").append(trow)
+                        })
+                    }else{
+                        $.each(response[0], function(i){
+                            if(response[0][i].user_id == uid){
+                                var trow = `<tr><td>
+                                <p
+                                    class="border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                    ${response[0][i].description.toUpperCase()}
+                                    <span class="text-gray-500 text-xs">${moment(response[0][i].created_at).format('YYYY-MM-DD')}</span>
+                                </p>
+                                </td></tr>`
+                                $("#profileTable").append(trow)
+                            }
+                        })
+                    }
+
+            }
+        })
+        $('#calendar').hide()
+        $("#profile").hide()
+        $("#table").hide()
+        $("#act-table").show()
     })
     $('#events').on('click', function(){
         $("#tbody tr").remove()
         $('#calendar').hide()
         $("#profile").hide()
+        $("#act-table").hide()
         $("#table").show()
         $.ajax({
             url: '/api/events',
             method: 'get',
             dataType: 'json',
+            data:{
+                uid: uid
+            },
             success: function(response){
                 // data = response
                 //console.log(response)
-                $.each(response, function(i){
-                    if(response[i].clientId == uid){
+                if(response[1][0].usertype_id === 1){
+                    $.each(response[0], function(i){
                         var tbrow = `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            ${response[i].eventName.toUpperCase()}
-                        </th>
-                        <td class="px-6 py-4">
-                            ${response[i].eventStart}
-                        </td>
-                        <td class="px-6 py-4">
-                            ${response[i].eventEnd}
-                        </td>
-                        <td class="px-6 py-4">
-                            ${response[i].status.toUpperCase()}
-                        </td>
-                        <td class="px-6 py-4 flex justify-center">
-                            <div class="flex flex-col justify-between">
-                                <button id="${response[i].id}-e" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                                    Edit
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                ${response[0][i].eventName.toUpperCase()}
+                            </th>
+                            <td class="px-6 py-4">
+                                ${response[0][i].eventStart}
+                            </td>
+                            <td class="px-6 py-4">
+                                ${response[0][i].eventEnd}
+                            </td>
+                            <td class="px-6 py-4">
+                                ${response[0][i].status.toUpperCase()}
+                            </td>
+                            <td class="px-6 py-4 flex justify-center">
+                                <div class="flex flex-col justify-between">
+                                    <button id="${response[0][i].id}-e" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        Edit
+                                    </button>
+                                    <button id="${response[0][i].id}-d" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" type="button">
+                                        Delete
+                                    </button>
+                                </div>
+                                <button id="${response[0][i].id}-r" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    Receipt
                                 </button>
-                                <button id="${response[i].id}-d" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" type="button">
-                                    Delete
+                            </td>
+                            </tr>`;
+                            $('#tbody').append(tbrow);
+                            if(response[0][i].status_id == 1){
+                                $("#" + response[0][i].id +"-e").hide()
+                                $("#" + response[0][i].id +"-d").hide()
+                                $("#" + response[0][i].id +"-r").show()
+                            }else{
+                                $("#" + response[0][i].id +"-e").show()
+                                $("#" + response[0][i].id +"-d").show()
+                                $("#" + response[0][i].id +"-r").hide()
+                            }
+                            $(document).on('click','#' + response[0][i].id + '-e', function(){
+                                let date1 = new Date(response[0][i].eventStart)
+                                let date2 = new Date(response[0][i].eventEnd)
+                                let Difference_In_Time = date2.getTime() - date1.getTime()
+                                let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+
+                                let number = Number(Math.round((Difference_In_Days* 80000) * 100) / 100)
+                                const options = {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                };
+                                const formatted = Number(number).toLocaleString('en', options);
+
+                                $("#eventDays").text("x" + Difference_In_Days)
+                                $("#eventDays").val(Difference_In_Days)
+                                $("#total").text('PHP ' + formatted)
+                                $("#total").val(number)
+
+                                $("#updModal").click()
+                                $("#modaltitle").text('Status: ' + response[0][i].status.toUpperCase())
+                                $("#modaltitle").val(response[0][i].id)
+
+                                $("#updEventName").val(response[0][i].eventName)
+                                $("#updStartDate").val(response[0][i].eventStart)
+                                $("#updEndDate").val(response[0][i].eventEnd)
+
+                                $("#initialdate1").val(response[0][i].eventStart)
+                                $("#initialdate2").val(response[0][i].eventEnd)
+                                $("#updEventSubmit").val(response[0][i].id)
+                                $("#paybtn").val(response[0][i].transaction_id)
+
+                                if(response[0][i].statusId == 1){
+                                    $("#paybtn").hide()
+                                    $("#updEventSubmit").hide()
+                                    $("#updStartDate").attr('disabled', true)
+                                    $("#updEndDate").attr('disabled', true)
+                                    $("#updEventName").attr('disabled', true)
+                                }else{
+                                    $("#paybtn").show()
+                                    $("#updEventSubmit").show()
+                                    $("#updStartDate").attr('disabled', false)
+                                    $("#updEndDate").attr('disabled', false)
+                                    $("#updEventName").attr('disabled', false)
+                                }
+                            })
+                            $(document).on('click', '#' + response[0][i].id + '-r', function(){
+                                //console.log('button click')
+                                $("#receipt").val(response[0][i].id)
+                                $("#receipt").click()
+                            })
+                            $(document).on('click', '#' + response[0][i].id + '-d', function(){
+                                //console.log('button click')
+                                $("#delEventId").val(response[0][i].id)
+                                $("#delEvent").click()
+                            })
+                    })
+                }
+                else{
+                    $.each(response[0], function(i){
+                        if(response[0][i].clientId == uid){
+                            var tbrow = `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                ${response[0][i].eventName.toUpperCase()}
+                            </th>
+                            <td class="px-6 py-4">
+                                ${response[0][i].eventStart}
+                            </td>
+                            <td class="px-6 py-4">
+                                ${response[0][i].eventEnd}
+                            </td>
+                            <td class="px-6 py-4">
+                                ${response[0][i].status.toUpperCase()}
+                            </td>
+                            <td class="px-6 py-4 flex justify-center">
+                                <div class="flex flex-col justify-between">
+                                    <button id="${response[0][i].id}-e" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        Edit
+                                    </button>
+                                    <button id="${response[0][i].id}-d" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="m-2 block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" type="button">
+                                        Delete
+                                    </button>
+                                </div>
+                                <button id="${response[0][i].id}-r" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    Receipt
                                 </button>
-                            </div>
-                            <button id="${response[i].id}-r" data-modal-target="btn-modal" data-modal-toggle="btn-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                                Receipt
-                            </button>
-                        </td>
-                        </tr>`;
-                        $('#tbody').append(tbrow);
-                    }
-                    if(response[i].status_id == 1){
-                        $("#" + response[i].id +"-e").hide()
-                        $("#" + response[i].id +"-d").hide()
-                        $("#" + response[i].id +"-r").show()
-                    }else{
-                        $("#" + response[i].id +"-e").show()
-                        $("#" + response[i].id +"-d").show()
-                        $("#" + response[i].id +"-r").hide()
-                    }
-                    $(document).on('click','#' + response[i].id + '-e', function(){
-                        let date1 = new Date(response[i].eventStart)
-                        let date2 = new Date(response[i].eventEnd)
-                        let Difference_In_Time = date2.getTime() - date1.getTime()
-                        let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
-
-                        let number = Number(Math.round((Difference_In_Days* 80000) * 100) / 100)
-                        const options = {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          };
-                        const formatted = Number(number).toLocaleString('en', options);
-
-                        $("#eventDays").text("x" + Difference_In_Days)
-                        $("#eventDays").val(Difference_In_Days)
-                        $("#total").text('PHP ' + formatted)
-                        $("#total").val(number)
-
-                        $("#updModal").click()
-                        $("#modaltitle").text('Status: ' + response[i].status.toUpperCase())
-                        $("#modaltitle").val(response[i].id)
-
-                        $("#updEventName").val(response[i].eventName)
-                        $("#updStartDate").val(response[i].eventStart)
-                        $("#updEndDate").val(response[i].eventEnd)
-
-                        $("#initialdate1").val(response[i].eventStart)
-                        $("#initialdate2").val(response[i].eventEnd)
-                        $("#updEventSubmit").val(response[i].id)
-                        $("#paybtn").val(response[i].transaction_id)
-
-                        if(response[i].statusId == 1){
-                            $("#paybtn").hide()
-                            $("#updEventSubmit").hide()
-                            $("#updStartDate").attr('disabled', true)
-                            $("#updEndDate").attr('disabled', true)
-                            $("#updEventName").attr('disabled', true)
-                        }else{
-                            $("#paybtn").show()
-                            $("#updEventSubmit").show()
-                            $("#updStartDate").attr('disabled', false)
-                            $("#updEndDate").attr('disabled', false)
-                            $("#updEventName").attr('disabled', false)
+                            </td>
+                            </tr>`;
+                            $('#tbody').append(tbrow);
                         }
-                    })
-                    $(document).on('click', '#' + response[i].id + '-r', function(){
-                        //console.log('button click')
-                        $("#receipt").val(response[i].id)
-                        $("#receipt").click()
-                    })
-                    $(document).on('click', '#' + response[i].id + '-d', function(){
-                        //console.log('button click')
-                        $("#delEventId").val(response[i].id)
-                        $("#delEvent").click()
-                    })
+                        if(response[0][i].status_id == 1){
+                            $("#" + response[0][i].id +"-e").hide()
+                            $("#" + response[0][i].id +"-d").hide()
+                            $("#" + response[0][i].id +"-r").show()
+                        }else{
+                            $("#" + response[0][i].id +"-e").show()
+                            $("#" + response[0][i].id +"-d").show()
+                            $("#" + response[0][i].id +"-r").hide()
+                        }
+                        $(document).on('click','#' + response[0][i].id + '-e', function(){
+                            let date1 = new Date(response[0][i].eventStart)
+                            let date2 = new Date(response[0][i].eventEnd)
+                            let Difference_In_Time = date2.getTime() - date1.getTime()
+                            let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
 
-                })
+                            let number = Number(Math.round((Difference_In_Days* 80000) * 100) / 100)
+                            const options = {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            };
+                            const formatted = Number(number).toLocaleString('en', options);
+
+                            $("#eventDays").text("x" + Difference_In_Days)
+                            $("#eventDays").val(Difference_In_Days)
+                            $("#total").text('PHP ' + formatted)
+                            $("#total").val(number)
+
+                            $("#updModal").click()
+                            $("#modaltitle").text('Status: ' + response[0][i].status.toUpperCase())
+                            $("#modaltitle").val(response[0][i].id)
+
+                            $("#updEventName").val(response[0][i].eventName)
+                            $("#updStartDate").val(response[0][i].eventStart)
+                            $("#updEndDate").val(response[0][i].eventEnd)
+
+                            $("#initialdate1").val(response[0][i].eventStart)
+                            $("#initialdate2").val(response[0][i].eventEnd)
+                            $("#updEventSubmit").val(response[0][i].id)
+                            $("#paybtn").val(response[0][i].transaction_id)
+
+                            if(response[0][i].statusId == 1){
+                                $("#paybtn").hide()
+                                $("#updEventSubmit").hide()
+                                $("#updStartDate").attr('disabled', true)
+                                $("#updEndDate").attr('disabled', true)
+                                $("#updEventName").attr('disabled', true)
+                            }else{
+                                $("#paybtn").show()
+                                $("#updEventSubmit").show()
+                                $("#updStartDate").attr('disabled', false)
+                                $("#updEndDate").attr('disabled', false)
+                                $("#updEventName").attr('disabled', false)
+                            }
+                        })
+                        $(document).on('click', '#' + response[0][i].id + '-r', function(){
+                            //console.log('button click')
+                            $("#receipt").val(response[0][i].id)
+                            $("#receipt").click()
+                        })
+                        $(document).on('click', '#' + response[0][i].id + '-d', function(){
+                            //console.log('button click')
+                            $("#delEventId").val(response[0][i].id)
+                            $("#delEvent").click()
+                        })
+
+                    })
+                }
 
             }
         })
@@ -400,7 +552,7 @@ $(document).ready(function() {
             method:'get',
             dataType: 'json',
             success: function(response){
-                console.log(response)
+                //console.log(response)
 
                 let date1 = new Date(response[0].eventStart)
                 let date2 = new Date(response[0].eventEnd)
