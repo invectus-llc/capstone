@@ -8,7 +8,14 @@ import interactionPlugin from '@fullcalendar/interaction';
 import jQuery from 'jquery';
 window.$ = jQuery
 
+$(document).ajaxError(function(event, xhr, settings, thrownError) {
+    if (xhr.status === 419) {
+        window.location.href = '/login';
+    }
+});
+
 $(document).ready(function() {
+    $("#userid").hide()
     $('#table').hide()
     $("#profile").hide()
     $("#transactionsList").hide()
@@ -19,8 +26,9 @@ $(document).ready(function() {
     $("#delEvent").hide()
     $("#act-table").hide()
 
-    const queryString = new URLSearchParams(window.location.search);
-    const uid = queryString.get('user')
+    // const queryString = new URLSearchParams(window.location.search);
+    // const uid = queryString.get('user')
+    const uid = $("#userid").text()
     display_events();
 
     function calendar(events){
@@ -123,6 +131,9 @@ $(document).ready(function() {
         $.ajax({
             url:'/api/events',
             method:'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType:'json',
             data: {
                 eventName: eventName,
@@ -161,6 +172,9 @@ $(document).ready(function() {
         $.ajax({
             url: '/api/users/' + uid,
             method: 'get',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             success: function(response){
                 //console.log(response)
@@ -185,6 +199,9 @@ $(document).ready(function() {
         $.ajax({
             url: '/api/users/' + uid,
             method: 'patch',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             data: {
                 email: email,
@@ -208,6 +225,9 @@ $(document).ready(function() {
         $.ajax({
             url: '/api/logs/' + uid,
             method: 'get',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             success: function(response){
                 //console.log(response)
@@ -254,6 +274,9 @@ $(document).ready(function() {
         $.ajax({
             url: '/api/events',
             method: 'get',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             data:{
                 uid: uid
@@ -477,6 +500,9 @@ $(document).ready(function() {
             $.ajax({
                 url: '/api/events',
                 method: 'patch',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 dataType: 'json',
                 data:{
                     id: id,
@@ -550,6 +576,9 @@ $(document).ready(function() {
         $.ajax({
             url: '/api/events/' + eventId,
             method:'get',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             success: function(response){
                 //console.log(response)
@@ -580,6 +609,9 @@ $(document).ready(function() {
         $.ajax({
             url:'/api/events/' + id,
             method: 'delete',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             data:{
                 clientId: uid
@@ -589,6 +621,7 @@ $(document).ready(function() {
             }
         })
     })
+
 }); //end document.ready block
 
 //notify

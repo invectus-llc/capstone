@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Login;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
@@ -13,8 +14,12 @@ class LoginController extends Controller
         $login = Login::firstWhere('username', $request->username);
         if($login->password == $request->password){
             $id = Login::Where('username', $request->username)->pluck('id');
+            // Session::push('sessionId', $id);
+            // dd(Session::all());
             // return redirect('/test')->with('data', json_encode($login));
-            return redirect()->action([IndexController::class, 'dashboard'], ['user' => $id[0]]);
+            $request->session()->put(['sessionId'=>$id[0]]);
+            // return redirect()->action([IndexController::class, 'dashboard'], [$request]);
+            return redirect()->route('dashboard');
         }else{
             return view('login');
         }
@@ -27,6 +32,11 @@ class LoginController extends Controller
         ]);
         $newlogin = Login::firstWhere('username', $request->username);
         return response()->json($newlogin, Response::HTTP_CREATED);
+    }
+    public function logout(){
+        Session::flush();
+        // dd(Session::all());
+        return redirect()->route('login');
     }
     public function test(){
         return view('test');

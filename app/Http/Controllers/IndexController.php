@@ -14,9 +14,13 @@ class IndexController extends Controller
     }
     public function dashboard(Request $user){
         // session(['id' => $id]);
-        return view('dashboard', $user);
+        //Session::put(['sessionId'=>$user->user]);
+        // dd($user->session()->get('sessionId'));
+        return view('dashboard', ['userid'=>$user->session()->get('sessionId')]);
     }
     public function login(){
+        Session::invalidate();
+        // dd(Session::all());
         return view('login');
     }
     public function test(){

@@ -26,8 +26,11 @@ $('#signup').on('click', function () {
 
     if($.isNumeric(contact)){
         $.ajax({
-            url: '/api/login',
+            url: '/api/register',
             method: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: 'json',
             data:{
                 username: username,
@@ -40,6 +43,9 @@ $('#signup').on('click', function () {
                     $.ajax({
                         url: '/api/users',
                         method: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
                         dataType: 'json',
                         data:{
                             email: email,
