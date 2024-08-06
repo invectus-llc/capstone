@@ -622,7 +622,22 @@ $(document).ready(function() {
         })
     })
 
+    // const settings = {
+    //     async: true,
+    //     crossDomain: true,
+    //     url: 'https://api.paymongo.com/v1/checkout_sessions',
+    //     method: 'POST',
+    //     headers: {
+    //       accept: 'application/json',
+    //       'Content-Type': 'application/json',
+    //       authorization: 'Basic c2tfdGVzdF85ZW1Va0o2TjNHYXhtZ2VQRjY5WVdSaWo6'
+    //     },
+    //     processData: false,
+    //     data: '{"data":{"attributes":{"send_email_receipt":false,"show_description":true,"show_line_items":true}}}'
+    //   };
+
+    //   $.ajax(settings).done(function (response) {
+    //     console.log(response);
+    //   });
 }); //end document.ready block
 
-//notify
-//admin side

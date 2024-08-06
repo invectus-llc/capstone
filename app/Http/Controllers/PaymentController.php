@@ -48,16 +48,23 @@ class PaymentController extends Controller
             'Content-Type' => 'application/json',
             'accept' => 'application/json',
             'authorization' => 'Basic '.$auth,
+            'Access-Control-Allow-Origin', '*',
+            'Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers', 'Content-Type, Authorization'
         ],
         ]);
         $url = json_decode($response->getBody());
         $transid = $url->data->attributes->payment_intent->id;
         //$trans_id = DB::table('events')->where('id','=',$request->eventId)->get('transaction_id');
         //dd($trans_id);
+        Session::put(['payment_id'=>$url->data->id]);
         DB::table('transactions')->where('id', '=',$request->transId)->update(['transaction_id'=> $transid, 'amount'=>$total]);
         return response()->json($url->data);
+        // return redirect($url->data->attributes->checkout_url);
     }
-    public function success($uid, $transId){
+    public function success($uid, $transId, Request $request){
+        // $sessionid = Session::get('payment_id');
+        // dd($sessionid);
         $event = DB::table('events')->where('transaction_id', '=', $transId)->get();
         DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1, 'updated_at'=>now()]);
         DB::table('logs')->insert([
@@ -66,7 +73,8 @@ class PaymentController extends Controller
             'created_at'=>now(),
             'updated_at'=>now()
         ]);
-        return redirect('/dashboard?user=' . $uid);
+        $request->session()->put(['sessionId'=>$uid]);
+        return redirect()->route('dashboard');
         //ovverlaping edit date
     }
 }

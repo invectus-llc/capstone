@@ -25,9 +25,10 @@ Route::middleware(['web'])->group(function(){
     Route::patch('/users/{id}', [UsersController::class, 'userUpdate']);
 
     Route::get('/logs/{id}', [LogsController::class, 'userlogs']);
+
+    Route::get('/success/{uid}/{eventId}', [PaymentController::class,'success']);
 });
 
-Route::get('/success/{uid}/{eventId}', [PaymentController::class,'success']);
 Route::post('/pay', [PaymentController::class, 'pay']);
 
 Route::withoutMiddleware(['web'])->group(function(){
