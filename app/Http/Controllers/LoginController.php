@@ -18,9 +18,9 @@ class LoginController extends Controller
                 // Session::push('sessionId', $id);
                 // dd(Session::all());
                 // return redirect('/test')->with('data', json_encode($login));
-                $request->session()->put(['sessionId'=>$id[0]]);
+                //$request->session()->put(['sessionId'=>$id[0]]);
                 // return redirect()->action([IndexController::class, 'dashboard'], [$request]);
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard', ['user'=>$id[0]]);
             }else{
                 return view('login');
             }

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Middleware\SessionRequestMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Session\Middleware\StartSession;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,7 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web',[
-            \Illuminate\Session\Middleware\StartSession::class,
+            StartSession::class,
+        ]);
+        $middleware->appendToGroup('payment',[
+            StartSession::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -16,6 +16,8 @@ class IndexController extends Controller
         // session(['id' => $id]);
         //Session::put(['sessionId'=>$user->user]);
         // dd($user->session()->get('sessionId'));
+        // Session::regenerate();
+        // dd($user);
         return view('dashboard', ['userid'=>$user->session()->get('sessionId')]);
     }
     public function login(){

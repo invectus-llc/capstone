@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Middleware\SessionRequestMiddleware;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -26,13 +28,16 @@ Route::middleware(['web'])->group(function(){
 
     Route::get('/logs/{id}', [LogsController::class, 'userlogs']);
 
-    Route::get('/success/{uid}/{eventId}', [PaymentController::class,'success']);
 });
 
-Route::post('/pay', [PaymentController::class, 'pay']);
+Route::middleware(['payment'])->group(function(){
+    Route::get('/success/{uid}', [PaymentController::class,'success']);
+    Route::post('/pay', [PaymentController::class, 'pay'])->name('pay');
+    Route::post('/payreq', [PaymentController::class, 'payreq']);
+});
 
 Route::withoutMiddleware(['web'])->group(function(){
-    Route::post('/register', [LoginController::class, 'register'])->withoutMiddleware('web');
+    Route::post('/register', [LoginController::class, 'register']);
     Route::post('/users', [UsersController::class, 'register']);
 });
 

@@ -4,11 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class SessionRequestMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,13 +16,9 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        //Session::regenerate();
-        // dd($request->session_id);
-        $request->session()->put(['sessionId'=>$request->user]);
-        //dd($request->session()->get('session_id'));
-        if($request->session()->has('sessionId')){
-            return $next($request);
-        }
-        return redirect()->route('login');
+        //dd($request);
+        Session::flash('session_id', $request->uid);
+        //dd($request);
+        return $next($request);
     }
 }

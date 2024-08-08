@@ -529,6 +529,52 @@ $(document).ready(function() {
         let eventEnd = $("#updEndDate").val()
         let eventDays = $("#eventDays").val()
         let total = $("#total").val()
+        // const settings = {
+        //     async: true,
+        //     crossDomain: true,
+        //     url: 'https://api.paymongo.com/v1/checkout_sessions',
+        //     method: 'POST',
+        //     headers: {
+        //       accept: 'application/json',
+        //       'Content-Type': 'application/json',
+        //       authorization: 'Basic c2tfdGVzdF85ZW1Va0o2TjNHYXhtZ2VQRjY5WVdSaWo6'
+        //     },
+        //     processData: false,
+        //     data:
+        //         `{"data":
+        //             {"attributes":
+        //                 {
+        //                     "send_email_receipt": true,
+        //                     "show_description":true,
+        //                     "show_line_items":true,
+        //                     "description":"Function Hall Rental For: ${eventName}, From: ${eventStart}, To: ${eventEnd}",
+        //                     "line_items":[{
+        //                         "currency":"PHP",
+        //                         "amount":8000000,
+        //                         "description":"Rental Fee",
+        //                         "name":"Days",
+        //                         "quantity":${eventDays}
+        //                     }],
+        //                     "payment_method_types":[
+        //                         "qrph",
+        //                         "card",
+        //                         "dob",
+        //                         "paymaya",
+        //                         "billease",
+        //                         "gcash",
+        //                         "grab_pay"
+        //                     ],
+        //                     "success_url":"http://localhost:8000/api/success/${uid}/${response.data.id}"
+        //                 }
+        //             }
+        //         }`
+        //     };
+
+        //   $.ajax(settings).done(function (response) {
+        //     window.location.replace(response.data.attributes.checkout_url);
+        //     _callback()
+        //     // console.log(response.data.id)
+        //   });
         //console.log(total)
         $.ajax({
             url: '/api/pay',
