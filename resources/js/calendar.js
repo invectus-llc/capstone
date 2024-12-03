@@ -1,12 +1,14 @@
 import './bootstrap';
 import 'flowbite';
-import { Calendar } from '@fullcalendar/core';
+import { Calendar, formatDate } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import jQuery from 'jquery';
+import { Chart, registerables } from 'chart.js';
 window.$ = jQuery
+Chart.register(...registerables);
 
 $(document).ajaxError(function(event, xhr, settings, thrownError) {
     if (xhr.status === 419) {
@@ -30,7 +32,11 @@ $(document).ready(function() {
     // const uid = queryString.get('user')
     const uid = $("#userid").text()
     display_events();
-
+    if(uid == 1){
+        $("#chartDiv").show();
+    }else{
+        $("#chartDiv").hide()
+    }
     function calendar(events){
         let calendarEl = document.getElementById('calendar');
         let calendar = new Calendar(calendarEl, {
@@ -50,6 +56,36 @@ $(document).ready(function() {
         }
         });
         return calendar.render();
+    };
+    function chart(response){
+        // console.log(response)
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        let ctx = $('#myChart');
+        var data = []
+        $.each(response, function( i){
+            data.push(response[i].count)
+        })
+        let chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            datasets: [{
+                fill: true,
+                lineTension: '0.3',
+                label: '',
+                data: data,
+                borderWidth: 1,
+            }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+            }
+        });
+        return chart.render()
     };
 
     function display_events() {
@@ -85,6 +121,27 @@ $(document).ready(function() {
                             color: color
                         });
                     })
+
+                    var months = []
+                    $.each(response[0], function(i){
+                        if(response[0][i].status_id==1){
+                            var month = response[0][i].eventStart
+                            month = month.split('-')
+                            months.push(parseInt( month[1]))
+                        }
+                    })
+                    // console.log(months)
+                    var dataArray = [{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0},{count:0}];
+                    for(var i = 0; i < dataArray.length; i++){
+                        for(var j = 0; j < months.length; j++){
+                            if(months[j]==i){
+                                dataArray[i-1].count+=1
+                            }
+                        }
+                    }
+                    //console.log(response[0])
+                    chart(dataArray)
+
                 }else{
                     $.each(response[0], function (i) {
                         if(response[0][i].clientId != uid){
@@ -112,7 +169,12 @@ $(document).ready(function() {
                         });
                     })
                 }
-                calendar(events);
+                calendar(events);//end calendar events data
+
+                if(response[1][0].usertype_id === 1){
+                    //console.log(response[0][1].eventStart)
+
+                }//end chart data
             },//end success block
             error: function (xhr, status) {
             alert(response.msg);
@@ -154,6 +216,9 @@ $(document).ready(function() {
                 }
             }
         })
+        if(Chart.getChart("myChart")) {
+            Chart.getChart("myChart")?.destroy()
+        }
         display_events()
     })
     $('#dashboard').on('click',function(){
@@ -161,13 +226,18 @@ $(document).ready(function() {
         $("#table").hide()
         $("#profile").hide()
         $("#act-table").hide()
+        $("#chartDiv").show()
         display_events()
+        if(Chart.getChart("myChart")) {
+            Chart.getChart("myChart")?.destroy()
+        }
     })
     $("#user").on('click', function(){
         $("#profileInfo").click()
         $("#profile").show()
         $('#calendar').hide()
         $("#table").hide()
+        $("#chartDiv").hide()
         $("#act-table").hide()
         $.ajax({
             url: '/api/users/' + uid,
@@ -264,12 +334,14 @@ $(document).ready(function() {
         $("#profile").hide()
         $("#table").hide()
         $("#act-table").show()
+        $("#chartDiv").hide()
     })
     $('#events').on('click', function(){
         $("#tbody tr").remove()
         $('#calendar').hide()
         $("#profile").hide()
         $("#act-table").hide()
+        $("#chartDiv").hide()
         $("#table").show()
         $.ajax({
             url: '/api/events',

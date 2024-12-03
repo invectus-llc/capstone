@@ -27,11 +27,10 @@ Route::middleware(['web'])->group(function(){
     Route::patch('/users/{id}', [UsersController::class, 'userUpdate']);
 
     Route::get('/logs/{id}', [LogsController::class, 'userlogs']);
-
+    Route::get('/success/{uid}/{transId}', [PaymentController::class,'success']);
 });
 
 Route::middleware(['payment'])->group(function(){
-    Route::get('/success/{uid}', [PaymentController::class,'success']);
     Route::post('/pay', [PaymentController::class, 'pay'])->name('pay');
     Route::post('/payreq', [PaymentController::class, 'payreq']);
 });

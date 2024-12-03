@@ -26,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withSchedule(function(Schedule $schedule){
-        $schedule->command('app:user-mailer-job')->dailyAt('8:00')->appendOutputTo(storage_path('logs/email.log'));
-        $schedule->command('app:event-delete-job')->twiceDaily(12, 17)->appendOutputTo(storage_path('logs/event-delete.log'));
+        // $schedule->command('app:user-mailer-job')->dailyAt('8:00')->appendOutputTo(storage_path('logs/email.log'));
+        // $schedule->command('app:event-delete-job')->twiceDaily(12, 17)->appendOutputTo(storage_path('logs/event-delete.log'));
+        $schedule->command('app:user-mailer-job')->daily()->appendOutputTo(storage_path('logs/email.log'));
+        $schedule->command('app:event-delete-job')->everyMinute()->appendOutputTo(storage_path('logs/event-delete.log'));
     })->create();

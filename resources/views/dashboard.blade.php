@@ -104,6 +104,11 @@
 
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-blue-700" id="container">
+
+            <div id="chartDiv">
+                <canvas id="myChart"></canvas>
+            </div>
+
             <div id="calendar" class='md:w-full bg-gray-200 rounded md:p-4 sm:p-2 p-1'></div>
 
             <div class="relative overflow-x-auto rounded" id="table">

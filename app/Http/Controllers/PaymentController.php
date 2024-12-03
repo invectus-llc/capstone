@@ -17,7 +17,7 @@ class PaymentController extends Controller
     public function pay(Request $request){
         $request->session()->put(['sessionId'=>$request->uid]);
         //dd($request);
-        $transid = '';
+        $transid = $request->transId;
         $item = $request;
         $total = $item->total;
         $auth = 'c2tfdGVzdF85ZW1Va0o2TjNHYXhtZ2VQRjY5WVdSaWo6';
@@ -47,7 +47,7 @@ class PaymentController extends Controller
                         "gcash",
                         "grab_pay"
                     ],
-                    "success_url":"http://localhost:8000/api/success/'.$request->uid.'"
+                    "success_url":"http://localhost:8000/api/success/'.$request->uid.'/'.$transid.'"
                 }
             }
         }',
@@ -67,14 +67,14 @@ class PaymentController extends Controller
         return response()->json($url->data);
         // return redirect($url->data->attributes->checkout_url);
     }
-    public function success($uid, Request $request){
+    public function success($uid, $transId,  Request $request){
         Session::regenerate();
-        $transId = Session::get('payment_id');
+        //$transId = Session::get('payment_id');
         //dd($request);
         // dd($request);
-        $eventid = DB::table('transactions')->where('transaction_id', '=', $transId)->get();
+        $eventid = DB::table('transactions')->where('id', '=', $transId)->get();
         $event = DB::table('events')->where('transaction_id', '=', $eventid[0]->id)->get();
-        DB::table('transactions')->where('transaction_id', '=', $transId)->update(['status_id' => 1, 'updated_at'=>now()]);
+        DB::table('transactions')->where('id', '=', $transId)->update(['status_id' => 1, 'updated_at'=>now()]);
         DB::table('logs')->insert([
             'user_id'=>$uid,
             'description'=>'successfully paid event: ' . $event[0]->eventName,
