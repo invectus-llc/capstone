@@ -80,7 +80,9 @@ $(document).ready(function() {
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        min: 0,
+                        max: 15
                     }
                 },
             }
@@ -230,6 +232,11 @@ $(document).ready(function() {
         display_events()
         if(Chart.getChart("myChart")) {
             Chart.getChart("myChart")?.destroy()
+        }
+        if(uid == 1){
+            $("#chartDiv").show();
+        }else{
+            $("#chartDiv").hide()
         }
     })
     $("#user").on('click', function(){
