@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media print {
+    /* Sets print view with media query */
+
+      body *:not(#prinArea):not(#printArea *) {
+        visibility: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      /* Sets body and elements in it to not display */
+
+      #printArea, #printArea *{
+        visibility: visible;
+        width: 100vw;
+      }
+      #printArea{
+        font-size: x-large;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        page-break-after: always;
+        margin: 0;
+        padding: 0;
+      }
+      /* Sets print area element and all its content to display */
+      @page{
+        size: portrait;
+      }
+}

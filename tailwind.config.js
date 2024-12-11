@@ -7,8 +7,13 @@ export default {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+        backgroundImage:{
+            'hero-pattern': "url('/public/images/peoples-center-and-library.jpg')"
+        },
+    },
   },
+  darkMode: 'media',
   plugins: [
     require('flowbite/plugin')
   ],
