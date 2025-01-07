@@ -1,3 +1,6 @@
+## About the Project
+
+This is a WIP made by me <b>Kevin Payos</b> for academic purposes. It is a web-based event booking system which utilizes the Laravel Framework. It uses the Paymongo Payment Gateway sandbox api to simulate transactions.
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
