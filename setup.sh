@@ -20,5 +20,9 @@ php artisan route:cache
 # Seed Database
 php artisan db:seed
 
+# Install project npm dependencies and Vite
+npm install  # Install dependencies from package.json
+npm install vite --save-dev  # Ensure Vite is installed
+
 # Start the fpm module
 php-fpm

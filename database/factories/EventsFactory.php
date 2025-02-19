@@ -20,7 +20,6 @@ class EventsFactory extends Factory
             'eventName' => $this->faker->name(),
             'eventStart' => $this->faker->unique()->dateTimeInInterval($startDate = '-4 days', $interval = '+ 5 days', $timezone = null),
             'eventEnd' => $this->faker->unique()->dateTimeInInterval($startDate = '-7 days', $interval = '+ 5 days', $timezone = null),
-            'clientId' => rand(1,5)
         ];
     }
 }
