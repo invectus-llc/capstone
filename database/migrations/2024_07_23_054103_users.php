@@ -35,9 +35,9 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->bigInteger('contact_no');
-            $table->unsignedInteger('login_id');
+            $table->unsignedInteger('login_id')->nullable();
             $table->foreign('login_id')->references('id')->on('logins')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedInteger('usertype_id');
+            $table->unsignedInteger('usertype_id')->nullable();
             $table->foreign('usertype_id')->references('id')->on('usertype')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -45,7 +45,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('transaction_id');
             $table->integer('amount');
-            $table->unsignedInteger('status_id');
+            $table->unsignedInteger('status_id')->nullable();
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -54,16 +54,16 @@ return new class extends Migration
             $table->string('eventName');
             $table->date('eventStart');
             $table->date('eventEnd');
-            $table->unsignedInteger('clientId');
+            $table->unsignedInteger('clientId')->nullable();
             $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedInteger('transaction_id');
+            $table->unsignedInteger('transaction_id')->nullable();
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
-            $table->boolean('is_deleted');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
         Schema::create('logs', function(Blueprint $table){
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('description');
             $table->timestamps();
