@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Events::factory(10)->create();
+        $this->call([
+            StatusSeeder::class,
+            UserTypeSeeder::class,
+            AdminSeeder::class
+        ])
     }
 }
