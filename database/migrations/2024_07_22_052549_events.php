@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('events', function(Blueprint $table){
-        //     $table->increments('id');
-        //     $table->string('eventName');
-        //     $table->date('eventStart');
-        //     $table->date('eventEnd');
-        //     $table->unsignedInteger('clientId');
-        //     $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-        //     $table->integer('status');
-        //     $table->timestamps();
-        // });
+        Schema::create('events', function(Blueprint $table){
+            $table->increments('id');
+            $table->string('eventName');
+            $table->date('eventStart');
+            $table->date('eventEnd');
+            $table->unsignedInteger('clientId')->nullable();
+            $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedInteger('transaction_id')->nullable();
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
+            $table->boolean('is_deleted')->default(false);
+            $table->timestamps();
+        });
     }
 
     /**
