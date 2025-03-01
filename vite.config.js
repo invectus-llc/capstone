@@ -3,8 +3,11 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     server: {
-        host: 'localhost',  // Ensure it binds to localhost
-        port: 3000,         // Default port for Vite
+        //host: 'localhost',  // Ensure it binds to localhost
+        port: 3000,
+        hmr:{
+            host:'localhost'
+        }         // Default port for Vite
     },
     plugins: [
         laravel({
