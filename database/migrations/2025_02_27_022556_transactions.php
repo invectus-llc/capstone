@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('transaction_id');
             $table->integer('amount');
             $table->unsignedInteger('status_id')->nullable();
-            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

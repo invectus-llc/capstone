@@ -17,9 +17,7 @@ return new class extends Migration
             $table->date('eventStart');
             $table->date('eventEnd');
             $table->unsignedInteger('clientId')->nullable();
-            $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('transaction_id')->nullable();
-            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });

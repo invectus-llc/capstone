@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->bigInteger('contact_no');
             $table->unsignedInteger('login_id')->nullable();
-            $table->foreign('login_id')->references('id')->on('logins')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('usertype_id')->nullable();
-            $table->foreign('usertype_id')->references('id')->on('usertype')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
