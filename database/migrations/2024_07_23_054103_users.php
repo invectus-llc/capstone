@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->bigInteger('contact_no');
             $table->unsignedInteger('login_id')->nullable();
-            $table->unsignedInteger('usertype_id')->nullable();
+            $table->enum('user_type', ['admin', 'manager', 'user'])->default('user');
             $table->timestamps();
         });
     }

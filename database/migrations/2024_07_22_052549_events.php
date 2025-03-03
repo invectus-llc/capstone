@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('eventEnd');
             $table->unsignedInteger('clientId')->nullable();
             $table->unsignedInteger('transaction_id')->nullable();
-            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
