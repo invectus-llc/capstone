@@ -14,16 +14,11 @@ return new class extends Migration
         //users table foreigns
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('login_id')->references('id')->on('logins')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('usertype_id')->references('id')->on('usertype')->onDelete('cascade')->onUpdate('cascade');
         });
         //events table foreigns
         Schema::table('events', function (Blueprint $table){
-            $table->foreign('clientId')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');
-        });
-        //transactions table foreigns
-        Schema::table('transactions', function (Blueprint $table){
-            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
         });
         //logs table foreigns
         Schema::table('logs', function (Blueprint $table){
