@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             UserTypeSeeder::class,
             AdminSeeder::class
-        ])
+        ]);
     }
 }
