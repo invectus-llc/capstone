@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('events', function(Blueprint $table){
             $table->increments('id');
-            $table->string('eventName');
-            $table->date('eventStart');
-            $table->date('eventEnd');
-            $table->unsignedInteger('clientId')->nullable();
+            $table->string('event_name');
+            $table->date('event_start');
+            $table->date('event_end');
+            $table->unsignedInteger('client_id')->nullable();
             $table->unsignedInteger('transaction_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
