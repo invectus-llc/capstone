@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AdminSeeder extends Seeder
 {
@@ -12,16 +12,22 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('logins')->insert(['username'=>'admin', 'password'=>'admin','created_at'=>now(), 'updated_at'=>now()]);
+        DB::table('logins')->insert([
+            'username' => 'admin',
+            'password' => 'admin',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
         DB::table('users')->insert([
-            'email'=>'admin@admin.com',
-            'firstname'=>'admin',
-            'lastname'=>'admin',
-            'contact_no'=>9451237896,
-            'login_id'=>1,
-            'usertype_id'=>1,
-            'created_at'=>now(),
-            'updated_at'=>now()
+            'email' => 'admin@admin.com',
+            'first_name' => 'admin',
+            'last_name' => 'admin',
+            'contact_no' => 9451237896,
+            'login_id' => 1,
+            'user_type' => 'admin',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

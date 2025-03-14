@@ -15,8 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('transaction_id');
             $table->integer('amount');
-            $table->unsignedInteger('status_id')->nullable();
-            $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('status', ['pending', 'paid'])->default('pending');
             $table->timestamps();
         });
     }
