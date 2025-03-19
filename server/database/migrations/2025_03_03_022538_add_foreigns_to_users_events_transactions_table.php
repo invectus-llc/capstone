@@ -36,7 +36,7 @@ return new class extends Migration
         });
         Schema::table('events', function (Blueprint $table){
             $table->dropForeign(['transaction_id']);
-            $table->dropForeign(['clientId']);
+            $table->dropForeign(['client_id']);
         });
         Schema::table('logs', function (Blueprint $table){
             $table->dropForeign(['user_id']);
