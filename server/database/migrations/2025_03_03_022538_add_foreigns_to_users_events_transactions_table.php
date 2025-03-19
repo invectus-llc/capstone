@@ -32,15 +32,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['usertype_id']);
             $table->dropForeign(['login_id']);
         });
         Schema::table('events', function (Blueprint $table){
             $table->dropForeign(['transaction_id']);
-            $table->dropForeign(['clientId']);
-        });
-        Schema::table('transactions', function (Blueprint $table){
-            $table->dropForeign(['status_id']);
+            $table->dropForeign(['client_id']);
         });
         Schema::table('logs', function (Blueprint $table){
             $table->dropForeign(['user_id']);
